@@ -134,8 +134,8 @@ describe('Charts', () => {
       </MemoryRouter>
     )
     
-    // Find statistics by looking for the specific structure
-    const statisticsSection = screen.getByText('Statistics').closest('div')
+    // Find statistics by looking for the enhanced-card containing Statistics
+    const statisticsSection = screen.getByText('Statistics').closest('.enhanced-card')
     expect(statisticsSection).toContainElement(screen.getByText('2'))
     expect(statisticsSection).toContainElement(screen.getByText('Total Entries'))
     expect(statisticsSection).toContainElement(screen.getByText('-0.5'))

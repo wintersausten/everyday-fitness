@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Layout } from "../components/Layout";
 import { useWeightStore } from "../store";
-import { Button } from "../components/ui/Button";
 import { Modal } from "../components/ui/Modal";
 import { exportData, importData } from "../utils";
 import { useToast } from "../hooks/useToast";
@@ -28,7 +27,7 @@ export const Settings: React.FC = () => {
     try {
       setExporting(true);
       const data = exportData(entries, settings);
-      const blob = new Blob([data], { type: "application/json" });
+      const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;

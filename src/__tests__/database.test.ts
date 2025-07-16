@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { db, WeightEntry } from '../db/dexie'
+import { db, type WeightEntry } from '../db/dexie'
 
 describe('Database Operations', () => {
   beforeEach(async () => {

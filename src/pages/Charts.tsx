@@ -81,46 +81,46 @@ export const Charts: React.FC = () => {
               <h3 className="card-title">Statistics</h3>
             </div>
             <div className="stats-grid">
-              <div className="stat-card">
-                <div className="stat-value text-blue-600">
-                  {entries.length}
+                <div className="stat-card">
+                  <div className="stat-value text-blue-600">
+                    {entries.length}
+                  </div>
+                  <div className="stat-label">Total Entries</div>
                 </div>
-                <div className="stat-label">Total Entries</div>
-              </div>
-              
-              <div className="stat-card">
-                <div className="stat-value text-green-600">
-                  {rollingAverages.length}
+                
+                <div className="stat-card">
+                  <div className="stat-value text-green-600">
+                    {rollingAverages.length}
+                  </div>
+                  <div className="stat-label">Rolling Averages</div>
                 </div>
-                <div className="stat-label">Rolling Averages</div>
-              </div>
-              
-              <div className="stat-card">
-                <div className="stat-value text-purple-600">
-                  {(() => {
-                    const sortedEntries = [...entries].sort((a, b) => a.date.localeCompare(b.date))
-                    const daysDiff = sortedEntries.length > 1 
-                      ? Math.ceil((new Date(sortedEntries[sortedEntries.length - 1].date).getTime() - 
-                                  new Date(sortedEntries[0].date).getTime()) / (1000 * 60 * 60 * 24))
-                      : 0
-                    return daysDiff
-                  })()}
+                
+                <div className="stat-card">
+                  <div className="stat-value text-purple-600">
+                    {(() => {
+                      const sortedEntries = [...entries].sort((a, b) => a.date.localeCompare(b.date))
+                      const daysDiff = sortedEntries.length > 1 
+                        ? Math.ceil((new Date(sortedEntries[sortedEntries.length - 1].date).getTime() - 
+                                    new Date(sortedEntries[0].date).getTime()) / (1000 * 60 * 60 * 24))
+                        : 0
+                      return daysDiff
+                    })()}
+                  </div>
+                  <div className="stat-label">Days Tracked</div>
                 </div>
-                <div className="stat-label">Days Tracked</div>
-              </div>
-              
-              <div className="stat-card">
-                <div className="stat-value text-orange-600">
-                  {(() => {
-                    if (entries.length < 2) return '0'
-                    const sortedEntries = [...entries].sort((a, b) => a.date.localeCompare(b.date))
-                    const totalChange = sortedEntries[sortedEntries.length - 1].weight - sortedEntries[0].weight
-                    return totalChange > 0 ? `+${totalChange.toFixed(1)}` : totalChange.toFixed(1)
-                  })()}
+                
+                <div className="stat-card">
+                  <div className="stat-value text-orange-600">
+                    {(() => {
+                      if (entries.length < 2) return '0'
+                      const sortedEntries = [...entries].sort((a, b) => a.date.localeCompare(b.date))
+                      const totalChange = sortedEntries[sortedEntries.length - 1].weight - sortedEntries[0].weight
+                      return totalChange > 0 ? `+${totalChange.toFixed(1)}` : totalChange.toFixed(1)
+                    })()}
+                  </div>
+                  <div className="stat-label">Total Change</div>
                 </div>
-                <div className="stat-label">Total Change</div>
               </div>
-            </div>
           </div>
         </div>
       )}

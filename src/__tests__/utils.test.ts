@@ -8,6 +8,7 @@ import {
   exportData,
   importData
 } from '../utils'
+import type { Unit, WeightEntry, AppSettings } from '../db/schema'
 
 describe('Utility Functions', () => {
   describe('Unit Conversion', () => {
@@ -45,15 +46,15 @@ describe('Utility Functions', () => {
 
   describe('Rolling Average Calculation', () => {
     it('should calculate 7-day rolling average', () => {
-      const entries = [
-        { date: '2024-01-01', weight: 70.0 },
-        { date: '2024-01-02', weight: 70.2 },
-        { date: '2024-01-03', weight: 70.1 },
-        { date: '2024-01-04', weight: 69.9 },
-        { date: '2024-01-05', weight: 70.3 },
-        { date: '2024-01-06', weight: 70.0 },
-        { date: '2024-01-07', weight: 70.1 },
-        { date: '2024-01-08', weight: 70.2 }
+      const entries: WeightEntry[] = [
+        { date: '2024-01-01', weight: 70.0, createdAt: new Date(), updatedAt: new Date() },
+        { date: '2024-01-02', weight: 70.2, createdAt: new Date(), updatedAt: new Date() },
+        { date: '2024-01-03', weight: 70.1, createdAt: new Date(), updatedAt: new Date() },
+        { date: '2024-01-04', weight: 69.9, createdAt: new Date(), updatedAt: new Date() },
+        { date: '2024-01-05', weight: 70.3, createdAt: new Date(), updatedAt: new Date() },
+        { date: '2024-01-06', weight: 70.0, createdAt: new Date(), updatedAt: new Date() },
+        { date: '2024-01-07', weight: 70.1, createdAt: new Date(), updatedAt: new Date() },
+        { date: '2024-01-08', weight: 70.2, createdAt: new Date(), updatedAt: new Date() }
       ]
 
       const result = calculateRollingAverage(entries, 7)
@@ -63,9 +64,9 @@ describe('Utility Functions', () => {
     })
 
     it('should handle insufficient data', () => {
-      const entries = [
-        { date: '2024-01-01', weight: 70.0 },
-        { date: '2024-01-02', weight: 70.2 }
+      const entries: WeightEntry[] = [
+        { date: '2024-01-01', weight: 70.0, createdAt: new Date(), updatedAt: new Date() },
+        { date: '2024-01-02', weight: 70.2, createdAt: new Date(), updatedAt: new Date() }
       ]
 
       const result = calculateRollingAverage(entries, 7)
@@ -148,7 +149,7 @@ describe('Utility Functions', () => {
     }
 
     it('should export data to JSON', () => {
-      const exported = exportData(sampleData.entries, sampleData.settings)
+      const exported = exportData(sampleData.entries, sampleData.settings as AppSettings)
       
       expect(exported).toBeDefined()
       expect(exported.entries).toHaveLength(2)
@@ -158,7 +159,7 @@ describe('Utility Functions', () => {
     })
 
     it('should import valid data', () => {
-      const exported = exportData(sampleData.entries, sampleData.settings)
+      const exported = exportData(sampleData.entries, sampleData.settings as AppSettings)
       const imported = importData(JSON.stringify(exported))
       
       expect(imported.entries).toHaveLength(2)
