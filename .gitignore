@@ -26,3 +26,6 @@ dist-ssr
 # AI Assistant Direction
 *.md
 
+
+*storybook.log
+storybook-static
