@@ -30,6 +30,11 @@ export function deleteEntry(date: DayString): Promise<void> {
   return db.entries.delete(date)
 }
 
+/** All entries, newest day first. Lexicographic key order == date order. */
+export function listEntriesDesc(): Promise<Entry[]> {
+  return db.entries.orderBy('date').reverse().toArray()
+}
+
 /** Entries with from ≤ date ≤ to (both bounds inclusive), in date order. */
 export function entriesInRange(from: DayString, to: DayString): Promise<Entry[]> {
   return db.entries.where('date').between(from, to, true, true).toArray()

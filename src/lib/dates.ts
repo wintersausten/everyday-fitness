@@ -27,6 +27,17 @@ export function addDays(day: DayString, n: number): DayString {
   return formatLocalDay(new Date(y, m - 1, d + n))
 }
 
+/** Human-readable local date, e.g. "Sat, Jul 12, 2026", for lists and dialogs. */
+export function formatDayLong(day: DayString): string {
+  const [y, m, d] = parseDay(day)
+  return new Date(y, m - 1, d).toLocaleDateString(undefined, {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
+}
+
 /** Calendar days from `from` to `to` (positive when `to` is later). */
 export function spanDays(from: DayString, to: DayString): number {
   const [fy, fm, fd] = parseDay(from)

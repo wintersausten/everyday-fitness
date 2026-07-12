@@ -1,6 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { db } from '../src/db/db.ts'
-import { deleteEntry, entriesInRange, getEntry, upsertEntry } from '../src/db/entries.ts'
+import {
+  deleteEntry,
+  entriesInRange,
+  getEntry,
+  listEntriesDesc,
+  upsertEntry,
+} from '../src/db/entries.ts'
 import { KG_PER_LB } from '../src/lib/units.ts'
 
 afterEach(() => {
@@ -36,6 +42,20 @@ describe('deleteEntry', () => {
     await deleteEntry('2026-07-11')
     expect(await getEntry('2026-07-11')).toBeUndefined()
     expect(await db.entries.count()).toBe(1)
+  })
+})
+
+describe('listEntriesDesc', () => {
+  it('returns every entry newest day first', async () => {
+    for (const day of ['2026-07-09', '2026-07-12', '2026-07-10', '2026-07-11']) {
+      await upsertEntry(day, { value: 175, unit: 'lb' })
+    }
+    expect((await listEntriesDesc()).map((e) => e.date)).toEqual([
+      '2026-07-12',
+      '2026-07-11',
+      '2026-07-10',
+      '2026-07-09',
+    ])
   })
 })
 
