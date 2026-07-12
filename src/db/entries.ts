@@ -35,6 +35,11 @@ export function listEntriesDesc(): Promise<Entry[]> {
   return db.entries.orderBy('date').reverse().toArray()
 }
 
+/** All entries, oldest day first — the chart/stats scope order. */
+export function listEntriesAsc(): Promise<Entry[]> {
+  return db.entries.orderBy('date').toArray()
+}
+
 /** Entries with from ≤ date ≤ to (both bounds inclusive), in date order. */
 export function entriesInRange(from: DayString, to: DayString): Promise<Entry[]> {
   return db.entries.where('date').between(from, to, true, true).toArray()

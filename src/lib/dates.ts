@@ -38,6 +38,12 @@ export function formatDayLong(day: DayString): string {
   })
 }
 
+/** Local Date for a day string — render-time conversion only (chart x-axis). */
+export function dayToLocalDate(day: DayString): Date {
+  const [y, m, d] = parseDay(day)
+  return new Date(y, m - 1, d)
+}
+
 /** Calendar days from `from` to `to` (positive when `to` is later). */
 export function spanDays(from: DayString, to: DayString): number {
   const [fy, fm, fd] = parseDay(from)
