@@ -4,7 +4,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
 import DashboardScreen from '../src/screens/DashboardScreen.tsx'
 import { upsertEntry } from '../src/db/entries.ts'
-import { updateSettings } from '../src/db/settings.ts'
+import { getSettings, updateSettings } from '../src/db/settings.ts'
 import { addDays, todayLocal } from '../src/lib/dates.ts'
 
 // jsdom has no ResizeObserver; Recharts' ResponsiveContainer needs one.
@@ -49,8 +49,9 @@ describe('DashboardScreen', () => {
     expect(screen.getByRole('button', { name: 'All' }).getAttribute('aria-pressed')).toBe('false')
   })
 
-  it('renders current, change, and rate in the display unit', async () => {
+  it('renders raw current, change, and rate when smoothing is off', async () => {
     await seedRecentWeek()
+    await updateSettings({ smoothing: 'off' })
     renderDashboard()
     await screen.findByText('175.4 lb')
     // 175.4 − 176.2 over the full scope.
@@ -70,10 +71,37 @@ describe('DashboardScreen', () => {
 
   it('re-renders stats when the display unit changes (live query)', async () => {
     await seedRecentWeek()
+    await updateSettings({ smoothing: 'off' })
     renderDashboard()
     await screen.findByText('175.4 lb')
     await updateSettings({ displayUnit: 'kg' })
     await screen.findByText('79.6 kg')
+  })
+
+  it('defaults to the 7d avg smoothing chip', async () => {
+    await seedRecentWeek()
+    renderDashboard()
+    const chip = await screen.findByRole('button', { name: '7d avg' })
+    expect(chip.getAttribute('aria-pressed')).toBe('true')
+    expect(screen.getByRole('button', { name: 'Off' }).getAttribute('aria-pressed')).toBe('false')
+  })
+
+  it('computes stats over the ma7 trend and switches to raw on Off, persisting the mode', async () => {
+    await seedRecentWeek()
+    renderDashboard()
+    // Today's 7-calendar-day window holds only yesterday and today (the entry
+    // 7 days back is outside): (175.8 + 175.4) / 2 = 175.6. That entry's own
+    // window holds only itself, so the first trend value stays 176.2.
+    await screen.findByText('175.6 lb')
+    screen.getByText('-0.6 lb')
+    // OLS over trend x = 0, 6, 7 / y = 176.2, 176.0, 175.6:
+    // slope = −1.9333/28.6667 per day → ×7 ≈ −0.472 → −0.5 displayed.
+    screen.getByText('-0.5 lb/wk')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Off' }))
+    await screen.findByText('175.4 lb') // raw latest entry
+    screen.getByText('-0.8 lb')
+    expect((await getSettings()).smoothing).toBe('off')
   })
 
   it('range chips clip the chart but never the stats', async () => {

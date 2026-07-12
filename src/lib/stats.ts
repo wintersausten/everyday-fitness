@@ -1,7 +1,7 @@
 import type { DayString } from '../db/types.ts'
 import { addDays, spanDays } from './dates.ts'
 
-/** A point in a stats series: raw entries in slice 4, smoothed trend later. */
+/** A point in a series: raw entries, or the trend from lib/smoothing.ts. */
 export interface StatPoint {
   date: DayString
   kg: number
