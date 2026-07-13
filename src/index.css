@@ -396,6 +396,139 @@ body {
   padding: 8px 16px;
 }
 
+.scope-select {
+  font: inherit;
+  width: 100%;
+  color: var(--text-h);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.settings-section {
+  margin-bottom: 28px;
+}
+
+.settings-heading {
+  color: var(--text-h);
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.settings-hint {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.unit-radios {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-check input {
+  accent-color: var(--accent);
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.initiative-list {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.initiative-name {
+  flex: 1;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.initiative-span {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.initiative-goal {
+  font-size: 13px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.add-button {
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  width: 100%;
+}
+
+.initiative-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.form-field input {
+  font: inherit;
+  color: var(--text-h);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.form-field input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.form-field input:disabled {
+  opacity: 0.45;
+}
+
+.goal-fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 0;
+}
+
+.goal-fieldset legend {
+  font-size: 13px;
+  padding: 0 6px;
+}
+
+.initiative-form .save-button {
+  align-self: center;
+}
+
 .tab-bar {
   position: fixed;
   bottom: 0;
