@@ -61,6 +61,9 @@ export default function InitiativeForm({
     if (!ongoing && endDate === '') return setError('Pick an end date or mark it ongoing')
     const end: DayString | null = ongoing ? null : endDate
     if (end !== null && end < startDate) return setError('End date must be on or after the start date')
+    // An end date records when an initiative actually finished, so it can't be
+    // in the future — to plan a finish, use the goal’s target date instead.
+    if (end !== null && end > today) return setError('End date can’t be in the future')
 
     let goal: InitiativeInput['goal'] = null
     if (hasGoalWeight) {
@@ -117,12 +120,12 @@ export default function InitiativeForm({
           </label>
           <label className="form-field">
             <span>Start date</span>
-            {/* No HTML max=today: it would make a future value constraint-invalid
-                and silently block submit. The form validates in JS so the future
-                start surfaces as an inline error like every other field. */}
+            {/* Cap the picker at today so a future start can't be chosen; JS
+                validation stays as the backstop for typed-in values. */}
             <input
               type="date"
               value={startDate}
+              max={today}
               onChange={(e) => {
                 setStartDate(e.target.value)
                 setError(undefined)
@@ -146,6 +149,7 @@ export default function InitiativeForm({
               <input
                 type="date"
                 value={endDate}
+                max={today}
                 onChange={(e) => {
                   setEndDate(e.target.value)
                   setError(undefined)
