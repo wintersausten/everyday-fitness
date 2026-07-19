@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   CartesianGrid,
   Line,
@@ -5,6 +6,7 @@ import {
   ReferenceArea,
   ReferenceLine,
   ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
 } from 'recharts'
@@ -40,6 +42,58 @@ function formatTick(t: number): string {
   return new Date(t).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
 }
 
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+}
+
+interface TooltipPayloadItem {
+  dataKey: string
+  value: number
+}
+
+/**
+ * Small `--surface` card with a hairline border and tabular numbers (§7).
+ * When smoothed, the trend value is the headline and the raw point is secondary.
+ */
+function ChartTooltip({
+  active,
+  label,
+  payload,
+  unit,
+  smoothed,
+}: {
+  active?: boolean
+  label?: number
+  payload?: readonly TooltipPayloadItem[]
+  unit: Unit
+  smoothed: boolean
+}) {
+  if (!active || !payload || payload.length === 0 || label === undefined) return null
+  const by = (key: string) => payload.find((p) => p.dataKey === key)?.value
+  const headline = smoothed ? by('trend') : by('raw')
+  const raw = by('raw')
+
+  return (
+    <div className="chart-tooltip">
+      <div className="chart-tooltip-date">{formatTick(label)}</div>
+      {headline !== undefined && (
+        <div className="chart-tooltip-value">
+          {roundToDisplay(headline).toFixed(1)} {unit}
+        </div>
+      )}
+      {smoothed && raw !== undefined && (
+        <div className="chart-tooltip-raw">
+          raw {roundToDisplay(raw).toFixed(1)} {unit}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function TrendChart({
   entries,
   trend,
@@ -49,6 +103,15 @@ export default function TrendChart({
   showGoalDate,
   chapters,
 }: TrendChartProps) {
+  // Draw the line in once on mount (§6), then switch off so a range/smoothing
+  // change re-renders instantly instead of re-animating. Honors reduced-motion.
+  const [animate, setAnimate] = useState(() => !prefersReducedMotion())
+  useEffect(() => {
+    if (!animate) return
+    const id = setTimeout(() => setAnimate(false), 700)
+    return () => clearTimeout(id)
+  }, [animate])
+
   if (entries.length === 0) {
     return <div className="chart-card chart-empty">No entries in this range.</div>
   }
@@ -72,7 +135,8 @@ export default function TrendChart({
     <div className="chart-card">
       <ResponsiveContainer width="100%" height={260}>
         <LineChart data={data} margin={{ top: 8, right: 12, bottom: 0, left: -8 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          {/* Minimal, muted grid (§7) — few lines, hairline color. */}
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
           {visibleChapters.map((c, i) => (
             <ReferenceArea
               key={c.id}
@@ -80,16 +144,17 @@ export default function TrendChart({
               x2={dayToLocalDate(c.to).getTime()}
               ifOverflow="hidden"
               fill="var(--accent)"
-              fillOpacity={i % 2 ? 0.14 : 0.07}
+              fillOpacity={i % 2 ? 0.12 : 0.06}
               stroke="none"
-              label={{ value: c.name, position: 'insideTop', fontSize: 11, fill: 'var(--text)' }}
+              label={{ value: c.name, position: 'insideTop', fontSize: 11, fill: 'var(--text-muted)' }}
             />
           ))}
+          {/* Goal is a target, not a data series (§7): dashed line in --ink. */}
           {goal && (
             <ReferenceLine
               y={fromKg(goal.targetWeightKg, unit)}
               ifOverflow="extendDomain"
-              stroke="var(--accent)"
+              stroke="var(--ink)"
               strokeDasharray="4 4"
             />
           )}
@@ -97,7 +162,7 @@ export default function TrendChart({
             <ReferenceLine
               x={dayToLocalDate(goal.targetDate).getTime()}
               ifOverflow="extendDomain"
-              stroke="var(--accent)"
+              stroke="var(--ink)"
               strokeDasharray="4 4"
             />
           )}
@@ -106,27 +171,46 @@ export default function TrendChart({
             type="number"
             domain={['dataMin', 'dataMax']}
             tickFormatter={formatTick}
-            stroke="var(--text)"
+            stroke="var(--border)"
+            tick={{ fill: 'var(--text-muted)' }}
             tickLine={false}
             fontSize={12}
           />
           <YAxis
             domain={['auto', 'auto']}
             tickFormatter={(v: number) => String(roundToDisplay(v))}
-            stroke="var(--text)"
+            stroke="var(--border)"
+            tick={{ fill: 'var(--text-muted)' }}
             tickLine={false}
             fontSize={12}
             width={44}
           />
+          <Tooltip
+            content={(props) => (
+              <ChartTooltip
+                {...(props as unknown as {
+                  active?: boolean
+                  label?: number
+                  payload?: readonly TooltipPayloadItem[]
+                })}
+                unit={unit}
+                smoothed={smoothed}
+              />
+            )}
+            cursor={{ stroke: 'var(--border)' }}
+          />
+          {/* Raw series recedes: faint muted dots so the trend line reads primary (§7). */}
           <Line
             dataKey="raw"
             stroke={smoothed ? 'none' : 'var(--accent)'}
             strokeWidth={2}
-            isAnimationActive={false}
+            isAnimationActive={animate}
+            animationDuration={600}
+            animationEasing="ease-out"
             dot={{
-              r: 3.5,
-              fill: 'var(--accent)',
-              fillOpacity: smoothed ? 0.35 : 1,
+              r: smoothed ? 3 : 3.5,
+              fill: smoothed ? 'var(--text-muted)' : 'var(--accent)',
+              fillOpacity: smoothed ? 0.3 : 1,
               stroke: 'none',
             }}
           />
@@ -135,7 +219,9 @@ export default function TrendChart({
               dataKey="trend"
               stroke="var(--accent)"
               strokeWidth={2}
-              isAnimationActive={false}
+              isAnimationActive={animate}
+              animationDuration={600}
+              animationEasing="ease-out"
               dot={false}
             />
           )}
