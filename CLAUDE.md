@@ -37,6 +37,19 @@ Dexie). The user owns their data and can export it.
   these do NOT work in the dev server)
 - Typecheck: npm run typecheck   Lint: npm run lint
 
+## Seeding test data (dev only)
+- `window.seed` is a dev-only browser-console API (src/db/seed.ts, loaded in
+  main.tsx behind `import.meta.env.DEV`) for filling IndexedDB with bulk weight
+  data for visual/manual testing. It is stripped from the production bundle and
+  is NOT for automated tests (those use fake-indexeddb).
+- To use: `npm run dev`, open the console, call e.g. `await seed.steadyLoss()`.
+  `seed.help()` lists every scenario; `seed.clear()` / `seed.reset()` wipe. Each
+  scenario clears first, so they're one-shot.
+- When verifying UI in the preview, seed a relevant scenario instead of
+  hand-entering data. Edge-case scenarios (single, flat, outlier, lapsed,
+  emptyInitiative, …) exist to stress smoothing, stats, ranges, and
+  initiative/goal rendering.
+
 ## Workflow
 - Verify every change: typecheck + lint + tests. Verify PWA/offline behavior
   against a production build (build && preview), never dev.
