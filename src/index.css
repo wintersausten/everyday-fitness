@@ -106,10 +106,11 @@ body {
   margin: 8px 0 16px;
 }
 
+/* Log — calm & spacious (DESIGN.md §1/§4): generous section gaps, room to breathe. */
 .log-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 32px;
   align-items: center;
   padding-top: 24px;
 }
@@ -120,15 +121,17 @@ body {
   gap: 8px;
 }
 
+/* Quiet steppers (§8) — small controls, --r-sm, 44px touch target. */
 .day-step {
-  width: 40px;
-  height: 40px;
-  font-size: 22px;
+  width: 44px;
+  height: 44px;
+  font-family: var(--font-display);
+  font-size: 24px;
   line-height: 1;
   color: var(--text-h);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--r-sm);
 }
 
 .day-step:disabled {
@@ -140,91 +143,117 @@ body {
   color: var(--text-h);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 8px 12px;
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  min-height: 44px;
+  font-variant-numeric: tabular-nums;
 }
 
 .weight-input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 }
 
+/* Hero number over its unit pills — the calm focal point (§8). */
 .weight-input-row {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
+/* Hero weight (§3 `hero`): display 64/1.0, tabular. Soft surface, no border (§4). */
 .weight-field {
-  width: 180px;
-  font-size: 44px;
+  width: 240px;
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
   text-align: center;
   color: var(--text-h);
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 8px 12px;
+  border: none;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 20px 16px;
 }
 
 .weight-field:focus {
   outline: 2px solid var(--accent);
-  outline-offset: 1px;
+  outline-offset: 2px;
 }
 
+/* Unit selector — pill group (§8). One active at a time. */
 .unit-toggle {
   display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
+  gap: 8px;
 }
 
 .unit-option {
-  font: inherit;
-  font-size: 14px;
-  padding: 8px 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  min-width: 52px;
+  min-height: 44px;
+  padding: 8px 18px;
   color: var(--text);
   background: var(--surface);
-  border: none;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  transition: background var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
 }
 
 .unit-option.active {
   color: #fff;
   background: var(--accent);
+  border-color: var(--accent);
   font-weight: 600;
 }
 
 .input-error {
-  color: #d64545;
-  font-size: 14px;
+  color: var(--danger);
+  font-size: 13px;
   margin: 0;
 }
 
+/* Primary button (§8): accent fill, body-strong, --r-md, ≥44px, roomy padding. */
 .save-button {
-  font: inherit;
-  font-size: 17px;
+  font-family: var(--font-body);
+  font-size: 16px;
   font-weight: 600;
+  min-height: 48px;
   color: #fff;
   background: var(--accent);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--r-md);
   padding: 12px 48px;
+  transition: background var(--dur-micro) var(--ease-out);
+}
+
+.save-button:active {
+  background: var(--accent-press);
 }
 
 .saved-flash {
   color: var(--accent);
+  font-family: var(--font-body);
   font-size: 14px;
+  font-weight: 500;
   margin: 0;
   min-height: 1.5em;
   opacity: 0;
-  transition: opacity 0.2s;
+  transform: translateY(4px);
+  transition:
+    opacity var(--dur-trans) var(--ease-out),
+    transform var(--dur-trans) var(--ease-out);
 }
 
 .saved-flash.visible {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .history-list {
@@ -236,17 +265,19 @@ body {
   gap: 8px;
 }
 
+/* Dense list row (§8): hairline border, --r-md, tabular weight. */
 .history-row {
   width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
+  min-height: 44px;
   font: inherit;
   text-align: left;
   color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   padding: 12px 14px;
 }
 
@@ -254,12 +285,14 @@ body {
   flex: 1;
 }
 
+/* Initiative tag = small pill, accent on accent-soft (§8). */
 .history-initiative {
   font-size: 12px;
+  font-weight: 500;
   color: var(--accent);
-  border: 1px solid currentcolor;
-  border-radius: 999px;
-  padding: 1px 8px;
+  background: var(--accent-soft);
+  border-radius: var(--r-pill);
+  padding: 2px 10px;
   white-space: nowrap;
 }
 
@@ -275,14 +308,17 @@ body {
   margin-bottom: 12px;
 }
 
+/* Pill chips/toggles (§8): --r-pill, active = accent fill. */
 .range-chip {
-  font: inherit;
+  font-family: var(--font-body);
   font-size: 14px;
-  padding: 6px 14px;
+  min-height: 36px;
+  padding: 6px 16px;
   color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--r-pill);
+  transition: background var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
 }
 
 .range-chip.active {
@@ -292,10 +328,11 @@ body {
   font-weight: 600;
 }
 
+/* Dashboard card (§4): dense, hairline border, no shadow. */
 .chart-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   padding: 12px 8px;
   margin-bottom: 12px;
 }
@@ -304,8 +341,10 @@ body {
   text-align: center;
   padding: 48px 16px;
   font-size: 14px;
+  color: var(--text-muted);
 }
 
+/* Dashboard — dense & data-first (§1/§4): tight card gaps, hairline borders. */
 .stat-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -318,15 +357,26 @@ body {
   gap: 4px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   padding: 12px;
 }
 
+/* Stat label = overline (§3/§8): UPPERCASE display, muted. */
 .stat-label {
+  font-family: var(--font-display);
   font-size: 12px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
+/* Stat value = `stat` (§3): display 30/1.05, tabular. Numbers are the hero. */
 .stat-value {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1.05;
   font-weight: 600;
   color: var(--text-h);
   font-variant-numeric: tabular-nums;
@@ -335,6 +385,7 @@ body {
 .empty-state {
   text-align: center;
   padding: 48px 16px;
+  color: var(--text-muted);
 }
 
 .empty-state-action {
@@ -361,20 +412,25 @@ body {
   z-index: 20;
 }
 
+/* Bottom sheet (§8): --bg, --r-lg top corners, soft shadow, safe-area padding. */
 .sheet {
   width: 100%;
   max-width: 480px;
   background: var(--bg);
-  border-radius: 16px 16px 0 0;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  box-shadow: var(--shadow-soft);
   padding: 20px 16px calc(20px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
+/* Sheet/section title = h2 (§3): display 20/1.15, 600. */
 .sheet-title {
+  font-family: var(--font-display);
   color: var(--text-h);
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 1.15;
   font-weight: 600;
   margin: 0;
   text-align: center;
@@ -394,37 +450,44 @@ body {
 
 .delete-button,
 .cancel-button {
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: 15px;
+  min-height: 44px;
   background: none;
   border: none;
   padding: 8px 12px;
 }
 
 .delete-button {
-  color: #d64545;
+  color: var(--danger);
 }
 
 .cancel-button {
   color: var(--text);
 }
 
+/* Confirm dialog (§8): centered, --bg, --r-md. */
 .dialog {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-soft);
   padding: 20px;
   width: min(320px, calc(100vw - 48px));
 }
 
 .dialog-title {
+  font-family: var(--font-display);
   color: var(--text-h);
-  font-size: 17px;
+  font-size: 20px;
+  line-height: 1.15;
   font-weight: 600;
   margin: 0 0 8px;
 }
 
 .dialog-body {
   font-size: 14px;
+  color: var(--text);
   margin: 0 0 16px;
 }
 
@@ -434,50 +497,62 @@ body {
   gap: 8px;
 }
 
+/* Cancel is quiet (§8). */
 .dialog-cancel {
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: 15px;
+  min-height: 44px;
   color: var(--text-h);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--r-md);
   padding: 8px 16px;
 }
 
+/* Destructive confirm uses --danger (§8) — the only red. */
 .dialog-confirm {
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: 15px;
   font-weight: 600;
+  min-height: 44px;
   color: #fff;
-  background: #d64545;
+  background: var(--danger);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--r-md);
   padding: 8px 16px;
 }
 
 .scope-select {
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: 15px;
   width: 100%;
+  min-height: 44px;
   color: var(--text-h);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--r-md);
   padding: 10px 12px;
   margin-bottom: 12px;
 }
 
 .settings-section {
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
+/* Section heading = h2 (§3). */
 .settings-heading {
+  font-family: var(--font-display);
   color: var(--text-h);
-  font-size: 15px;
+  font-size: 20px;
+  line-height: 1.15;
   font-weight: 600;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
 }
 
 .settings-hint {
   font-size: 14px;
-  margin: 0 0 10px;
+  color: var(--text-muted);
+  margin: 0 0 12px;
 }
 
 .unit-radios {
@@ -490,6 +565,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-height: 44px;
 }
 
 .form-check input {
@@ -501,7 +577,7 @@ body {
 
 .initiative-list {
   list-style: none;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -516,23 +592,29 @@ body {
 
 .initiative-span {
   font-size: 13px;
+  color: var(--text-muted);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .initiative-goal {
   font-size: 13px;
   color: var(--accent);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
+/* Quiet-but-clear add action (§8): accent label on a quiet surface. */
 .add-button {
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: 15px;
   font-weight: 600;
+  min-height: 48px;
   color: var(--accent);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 16px;
+  border-radius: var(--r-md);
+  padding: 12px 16px;
   width: 100%;
 }
 
@@ -542,20 +624,29 @@ body {
   gap: 12px;
 }
 
+/* Form label = `label` (§3): body 13/1.3, 500. */
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  font-size: 14px;
+  gap: 6px;
+}
+
+.form-field > span {
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--text);
 }
 
 .form-field input {
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: 16px;
   color: var(--text-h);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 8px 12px;
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  min-height: 44px;
 }
 
 .form-field input:focus {
@@ -572,13 +663,15 @@ body {
   flex-direction: column;
   gap: 12px;
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   padding: 12px;
   margin: 0;
 }
 
 .goal-fieldset legend {
   font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
   padding: 0 6px;
 }
 
@@ -586,6 +679,7 @@ body {
   align-self: center;
 }
 
+/* Tab bar (§8): text-only, top hairline, overline labels — nav's athletic moment. */
 .tab-bar {
   position: fixed;
   bottom: 0;
@@ -602,13 +696,18 @@ body {
 .tab {
   flex: 1;
   text-align: center;
-  padding: 14px 4px;
-  font-size: 13px;
+  padding: 16px 4px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--text);
   text-decoration: none;
+  transition: color var(--dur-micro) var(--ease-out);
 }
 
 .tab.active {
   color: var(--accent);
-  font-weight: 600;
 }
