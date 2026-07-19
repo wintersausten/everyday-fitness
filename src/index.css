@@ -84,7 +84,7 @@ body {
 }
 
 .screen {
-  padding: 16px 16px calc(72px + env(safe-area-inset-bottom));
+  padding: 16px 16px calc(84px + env(safe-area-inset-bottom));
 }
 
 /* Overline — DESIGN.md §3. The one athletic UPPERCASE moment: stat & nav labels. */
@@ -789,7 +789,7 @@ body {
 .tab {
   flex: 1;
   text-align: center;
-  padding: 16px 4px;
+  padding: 22px 4px;
   font-family: var(--font-display);
   font-size: 12px;
   line-height: 1.2;
