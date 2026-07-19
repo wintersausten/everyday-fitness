@@ -1,12 +1,48 @@
 :root {
-  --text: #3d3a45;
-  --text-h: #08060d;
-  --bg: #fff;
-  --surface: #f6f5f8;
-  --border: #e5e4e7;
-  --accent: #4c6ef5;
+  /* Color — DESIGN.md §2, light (warm paper / cool ink / coral accent). */
+  --bg: #fbf9f6;
+  --surface: #f4f0eb;
+  --surface-2: #ebe5dd;
+  --border: #e5dfd7;
+  --text: #4b4e57;
+  --text-h: #1c1e24;
+  --text-muted: #8a8b93;
+  --accent: #e85a2c;
+  --accent-press: #cc4c22;
+  --accent-soft: #fbe6dc;
+  --ink: #23262f;
+  --danger: #c8443c;
 
-  font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
+  /* Type — DESIGN.md §3. Self-hosted, bundled (see main.tsx); swap fallback. */
+  --font-display: 'Barlow Condensed', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  /* Radius — DESIGN.md §4. */
+  --r-pill: 999px;
+  --r-lg: 20px;
+  --r-md: 14px;
+  --r-sm: 10px;
+
+  /* Elevation — DESIGN.md §4. Soft shadow on calm surfaces; hairlines elsewhere. */
+  --shadow-soft: 0 6px 24px rgb(30 20 10 / 8%);
+
+  /* Motion — DESIGN.md §6. */
+  --dur-micro: 150ms;
+  --dur-trans: 220ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Space — DESIGN.md §4, 4px base. Reference tokens; density is contextual. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 48px;
+
+  font: 16px/1.5 var(--font-body);
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
@@ -15,12 +51,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --surface: #1f2028;
-    --border: #2e303a;
-    --accent: #7c9cff;
+    /* Color — DESIGN.md §2, dark (deep cool charcoal / warm white / hot accent). */
+    --bg: #15171c;
+    --surface: #1e212a;
+    --surface-2: #282c37;
+    --border: #2f333e;
+    --text: #a2a5af;
+    --text-h: #f4f2ef;
+    --text-muted: #71747e;
+    --accent: #ff6f43;
+    --accent-press: #ff855f;
+    --accent-soft: #3a2418;
+    --ink: #f4f2ef;
+    --danger: #e5675e;
+
+    --shadow-soft: 0 6px 24px rgb(0 0 0 / 40%);
   }
 }
 
@@ -42,11 +87,23 @@ body {
   padding: 16px 16px calc(72px + env(safe-area-inset-bottom));
 }
 
-.screen h1 {
-  color: var(--text-h);
-  font-size: 24px;
+/* Overline — DESIGN.md §3. The one athletic UPPERCASE moment: stat & nav labels. */
+.overline {
+  font-family: var(--font-display);
+  font-size: 12px;
+  line-height: 1.2;
   font-weight: 600;
-  margin: 8px 0 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.screen h1 {
+  font-family: var(--font-display);
+  color: var(--text-h);
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 600;
+  margin: 8px 0 16px;
 }
 
 .log-form {
