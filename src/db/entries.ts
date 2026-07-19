@@ -44,3 +44,9 @@ export function listEntriesAsc(): Promise<Entry[]> {
 export function entriesInRange(from: DayString, to: DayString): Promise<Entry[]> {
   return db.entries.where('date').between(from, to, true, true).toArray()
 }
+
+/** Total number of entries across the whole DB — used to tell an empty scope
+ * apart from a genuinely empty database. */
+export function countEntries(): Promise<number> {
+  return db.entries.count()
+}

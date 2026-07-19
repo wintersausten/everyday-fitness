@@ -6,7 +6,7 @@ import RangeChips from '../components/RangeChips.tsx'
 import SmoothingToggle from '../components/SmoothingToggle.tsx'
 import StatCards from '../components/StatCards.tsx'
 import TrendChart, { type Chapter } from '../components/TrendChart.tsx'
-import { entriesInRange, listEntriesAsc } from '../db/entries.ts'
+import { countEntries, entriesInRange, listEntriesAsc } from '../db/entries.ts'
 import { list as listInitiatives } from '../db/initiatives.ts'
 import { getSettings, updateSettings } from '../db/settings.ts'
 import type { SmoothingMode, Unit } from '../db/types.ts'
@@ -45,6 +45,10 @@ export default function DashboardScreen() {
         : listEntriesAsc(),
     [scoped?.id, scoped?.startDate, scoped?.endDate],
   )
+  // Whole-DB count, so an empty *scope* (e.g. a fresh ongoing initiative) can be
+  // told apart from a genuinely empty database. Only consulted when scoped —
+  // the All-data query already spans the whole DB.
+  const totalCount = useLiveQuery(countEntries, [])
 
   const scope = entries ?? []
   // Trend over the full scope, so range-clipped points keep their pre-range
@@ -88,11 +92,19 @@ export default function DashboardScreen() {
         />
       )}
       {entries?.length === 0 ? (
-        <EmptyState
-          message="No entries yet."
-          actionLabel="Log your first weigh-in"
-          actionTo="/"
-        />
+        // 'all' scope already spans the whole DB, so an empty result there means
+        // the DB is empty; when scoped, fall back to the whole-DB count.
+        scopeId === 'all' || totalCount === 0 ? (
+          <EmptyState
+            message="No entries yet."
+            actionLabel="Log your first weigh-in"
+            actionTo="/"
+          />
+        ) : (
+          // Empty scope but the user has data elsewhere — keep the switcher (above)
+          // so they can navigate away instead of stranding them on onboarding.
+          <div className="chart-card chart-empty">No entries in this initiative yet.</div>
+        )
       ) : (
         <>
           <RangeChips value={range} onChange={setRangeSel} />
