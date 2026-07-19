@@ -55,6 +55,14 @@ export default function DashboardScreen() {
   )
   const stats = scopeStats(trend)
 
+  // Goal direction for §5 semantic color: which way the target lies from the
+  // scope's starting weight. No goal (or All-data scope) ⇒ 0 ⇒ neutral, never
+  // an assumption that down = good.
+  const goalDirection =
+    scoped?.goal && trend.length > 0
+      ? Math.sign(scoped.goal.targetWeightKg - trend[0].kg)
+      : 0
+
   const range = rangeSel ?? (scoped ? 'all' : '90d')
   const days = RANGE_DAYS[range]
   // Trailing windows anchor at the scope's last day, so 30d inside an ended
@@ -109,7 +117,7 @@ export default function DashboardScreen() {
             value={smoothing}
             onChange={(next) => void updateSettings({ smoothing: next })}
           />
-          <StatCards stats={stats} unit={unit} />
+          <StatCards stats={stats} unit={unit} goalDirection={goalDirection} />
         </>
       )}
     </main>

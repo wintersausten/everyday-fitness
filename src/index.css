@@ -415,6 +415,25 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* Directional arrow (§5) — pairs with color so meaning never rides on color alone. */
+.stat-delta {
+  margin-right: 1px;
+}
+
+/* Weight-change semantics (§5): toward-goal = warm accent, away = neutral-muted,
+   no goal = plain direction-only. Never green/red — red is destructive-only. */
+.stat-value--toward {
+  color: var(--accent);
+}
+
+.stat-value--away {
+  color: var(--text-muted);
+}
+
+.stat-value--neutral {
+  color: var(--text);
+}
+
 .empty-state {
   text-align: center;
   padding: 48px 16px;
