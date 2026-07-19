@@ -7,6 +7,12 @@ import App from './App.tsx'
 
 registerSW()
 
+// Dev-only bulk data seeder, exposed as `window.seed` in the console.
+// Dynamic import behind DEV so it's excluded from the production bundle.
+if (import.meta.env.DEV) {
+  import('./db/seed.ts').then((m) => m.installSeedConsole())
+}
+
 // Ask the browser not to evict IndexedDB under storage pressure.
 // Fire-and-forget: the app works either way, but durability matters.
 navigator.storage
