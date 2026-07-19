@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   CartesianGrid,
   Line,
@@ -39,6 +40,14 @@ interface TrendChartProps {
 
 function formatTick(t: number): string {
   return new Date(t).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+}
+
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
 }
 
 interface TooltipPayloadItem {
@@ -94,6 +103,15 @@ export default function TrendChart({
   showGoalDate,
   chapters,
 }: TrendChartProps) {
+  // Draw the line in once on mount (§6), then switch off so a range/smoothing
+  // change re-renders instantly instead of re-animating. Honors reduced-motion.
+  const [animate, setAnimate] = useState(() => !prefersReducedMotion())
+  useEffect(() => {
+    if (!animate) return
+    const id = setTimeout(() => setAnimate(false), 700)
+    return () => clearTimeout(id)
+  }, [animate])
+
   if (entries.length === 0) {
     return <div className="chart-card chart-empty">No entries in this range.</div>
   }
@@ -186,7 +204,9 @@ export default function TrendChart({
             dataKey="raw"
             stroke={smoothed ? 'none' : 'var(--accent)'}
             strokeWidth={2}
-            isAnimationActive={false}
+            isAnimationActive={animate}
+            animationDuration={600}
+            animationEasing="ease-out"
             dot={{
               r: smoothed ? 3 : 3.5,
               fill: smoothed ? 'var(--text-muted)' : 'var(--accent)',
@@ -199,7 +219,9 @@ export default function TrendChart({
               dataKey="trend"
               stroke="var(--accent)"
               strokeWidth={2}
-              isAnimationActive={false}
+              isAnimationActive={animate}
+              animationDuration={600}
+              animationEasing="ease-out"
               dot={false}
             />
           )}

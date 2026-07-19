@@ -453,6 +453,8 @@ body {
   display: flex;
   justify-content: center;
   z-index: 10;
+  /* Scrim fades in (§6). */
+  animation: overlay-in var(--dur-trans) var(--ease-out);
 }
 
 .sheet-overlay {
@@ -462,6 +464,41 @@ body {
 .dialog-overlay {
   align-items: center;
   z-index: 20;
+}
+
+/* Motion — DESIGN.md §6. Entrances ease-out; nothing performs. */
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Sheet slides up from the bottom. */
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Dialog fades in with a subtle scale. */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Bottom sheet (§8): --bg, --r-lg top corners, soft shadow, safe-area padding. */
@@ -475,6 +512,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  /* Slide up from bottom (§6). */
+  animation: sheet-in var(--dur-trans) var(--ease-out);
 }
 
 /* Sheet/section title = h2 (§3): display 20/1.15, 600. */
@@ -526,6 +565,8 @@ body {
   box-shadow: var(--shadow-soft);
   padding: 20px;
   width: min(320px, calc(100vw - 48px));
+  /* Fade + subtle scale (§6). */
+  animation: dialog-in var(--dur-trans) var(--ease-out);
 }
 
 .dialog-title {
@@ -762,4 +803,17 @@ body {
 
 .tab.active {
   color: var(--accent);
+}
+
+/* Reduced motion (§6): drop to instant / plain fade. Chart draw-in is disabled
+   separately in TrendChart (Recharts animates in JS, not CSS). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
