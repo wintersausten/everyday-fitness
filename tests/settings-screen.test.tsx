@@ -103,7 +103,7 @@ describe('SettingsScreen', () => {
     await create({ name: 'Spring cut', startDate: '2026-03-01', endDate: '2026-05-31', goal: null })
     await openNewInitiativeForm()
     // Starts on Spring cut's last day — inclusive ranges share 2026-05-31.
-    fillForm({ name: 'Bulk', start: '2026-05-31', ongoing: false, end: '2026-08-31' })
+    fillForm({ name: 'Bulk', start: '2026-05-31', ongoing: false, end: '2026-06-30' })
     fireEvent.click(screen.getByRole('button', { name: 'Save' }))
 
     const alert = await screen.findByRole('alert')

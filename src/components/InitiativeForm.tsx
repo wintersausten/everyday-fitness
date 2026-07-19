@@ -105,7 +105,11 @@ export default function InitiativeForm({
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="sheet-title">{initial ? 'Edit initiative' : 'New initiative'}</h2>
-        <form className="initiative-form" onSubmit={handleSubmit}>
+        {/* max={today} on the date inputs is a picker affordance only; noValidate
+            keeps native constraint validation from silently blocking submit when
+            a typed value still exceeds it — the JS checks below always run and
+            surface every rejection as a visible inline alert. */}
+        <form className="initiative-form" onSubmit={handleSubmit} noValidate>
           <label className="form-field">
             <span>Name</span>
             <input
