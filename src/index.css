@@ -239,9 +239,12 @@ body {
   background: var(--accent-press);
 }
 
-/* Save confirmation (§6): button bounce + a pulse ring radiating from it. */
+/* Save confirmation (§6): button bounce + a pulse ring radiating from it.
+   `forwards` matters here — the `celebrate` class now stays on the button
+   until the day changes, well past the animation's one-shot run, so it must
+   hold its faded-out end state rather than snapping back to a visible ring. */
 .save-button.celebrate {
-  animation: save-bounce var(--dur-celebrate) var(--ease-out);
+  animation: save-bounce var(--dur-celebrate) var(--ease-out) forwards;
 }
 
 .save-button.celebrate::after {
@@ -250,7 +253,7 @@ body {
   inset: 0;
   border: 2px solid var(--accent);
   border-radius: inherit;
-  animation: pulse-ring var(--dur-celebrate) var(--ease-out);
+  animation: pulse-ring var(--dur-celebrate) var(--ease-out) forwards;
   pointer-events: none;
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import DayPicker from '../components/DayPicker.tsx'
 import WeightInput from '../components/WeightInput.tsx'
@@ -15,7 +15,6 @@ export default function LogScreen() {
   const [touched, setTouched] = useState(false)
   const [error, setError] = useState<string>()
   const [saved, setSaved] = useState(false)
-  const savedTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   const settings = useLiveQuery(getSettings, [])
   const unit: Unit = settings?.displayUnit ?? 'lb'
@@ -26,12 +25,11 @@ export default function LogScreen() {
     setDraft(entry ? String(displayWeight(entry, unit)) : '')
   }, [entry, unit, touched])
 
-  useEffect(() => () => clearTimeout(savedTimer.current), [])
-
   const changeDay = (day: DayString) => {
     setSelectedDay(day)
     setTouched(false)
     setError(undefined)
+    setSaved(false)
   }
 
   const toggleUnit = (next: Unit) => {
@@ -52,12 +50,10 @@ export default function LogScreen() {
     // restarts the celebration — the browser commits this render before the
     // async write resolves, so the CSS animations replay from scratch.
     setSaved(false)
-    clearTimeout(savedTimer.current)
     void upsertEntry(selectedDay, { value: parsed.value, unit }).then(() => {
       setError(undefined)
       setTouched(false)
       setSaved(true)
-      savedTimer.current = setTimeout(() => setSaved(false), 1500)
     })
   }
 
