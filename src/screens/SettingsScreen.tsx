@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
+import AboutDialog from '../components/AboutDialog.tsx'
 import ConfirmDialog from '../components/ConfirmDialog.tsx'
+import InfoTip from '../components/InfoTip.tsx'
 import InitiativeForm from '../components/InitiativeForm.tsx'
 import SmoothingToggle from '../components/SmoothingToggle.tsx'
 import {
@@ -38,6 +40,7 @@ export default function SettingsScreen() {
   const [editing, setEditing] = useState<'new' | Initiative | null>(null)
   const [deleting, setDeleting] = useState<Initiative | null>(null)
   const [pendingEnd, setPendingEnd] = useState<PendingEnd | null>(null)
+  const [aboutOpen, setAboutOpen] = useState(false)
 
   const closeForm = () => {
     setEditing(null)
@@ -66,7 +69,22 @@ export default function SettingsScreen() {
       </section>
 
       <section className="settings-section">
-        <h2 className="settings-heading">Smoothing</h2>
+        <h2 className="settings-heading">
+          Smoothing
+          <InfoTip label="About trend lines" title="Trend lines">
+            <p>
+              <strong>7d avg</strong> is the mean of your entries over the trailing 7 calendar
+              days.
+            </p>
+            <p>
+              <strong>EMA</strong> (exponential moving average) weights recent entries more
+              heavily — it reacts faster to a new trend but is smoother than raw data.
+            </p>
+            <p>
+              <strong>Off</strong> shows your raw logged weights with no smoothing.
+            </p>
+          </InfoTip>
+        </h2>
         <SmoothingToggle
           value={settings?.smoothing ?? 'ma7'}
           onChange={(next) => void updateSettings({ smoothing: next })}
@@ -74,7 +92,14 @@ export default function SettingsScreen() {
       </section>
 
       <section className="settings-section">
-        <h2 className="settings-heading">Initiatives</h2>
+        <h2 className="settings-heading">
+          Initiatives
+          <InfoTip label="About initiatives" title="Initiatives">
+            <p>
+              Group weigh-ins into named periods — a cut, a bulk — and set an optional goal.
+            </p>
+          </InfoTip>
+        </h2>
         {initiatives?.length === 0 && (
           <p className="settings-hint">
             Group weigh-ins into named periods — a cut, a bulk — and set an optional goal.
@@ -104,6 +129,15 @@ export default function SettingsScreen() {
           New initiative
         </button>
       </section>
+
+      <section className="settings-section">
+        <h2 className="settings-heading">About</h2>
+        <button type="button" className="history-row" onClick={() => setAboutOpen(true)}>
+          About this app
+        </button>
+      </section>
+
+      <AboutDialog open={aboutOpen} onClose={() => setAboutOpen(false)} />
 
       {editing !== null && (
         <InitiativeForm

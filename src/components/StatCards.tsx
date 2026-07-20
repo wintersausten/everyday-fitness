@@ -1,3 +1,4 @@
+import InfoTip from './InfoTip.tsx'
 import type { Unit } from '../db/types.ts'
 import type { ScopeStats } from '../lib/stats.ts'
 import { fromKg, roundToDisplay } from '../lib/units.ts'
@@ -70,7 +71,12 @@ export default function StatCards({ stats, unit, goalDirection }: StatCardsProps
       )}
       {stats.ratePerWeekKg !== null && rate && (
         <div className="stat-card">
-          <span className="stat-label">Rate</span>
+          <span className="stat-label">
+            Rate
+            <InfoTip label="About rate" title="Rate">
+              <p>Your average weekly rate of change over the last 14 days.</p>
+            </InfoTip>
+          </span>
           <span className={`stat-value stat-value--${rate.dir}`}>
             {rate.arrow && (
               <span className="stat-delta" aria-hidden="true">

@@ -396,6 +396,9 @@ body {
 
 /* Stat label = overline (§3/§8): UPPERCASE display, muted. */
 .stat-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-family: var(--font-display);
   font-size: 12px;
   line-height: 1.2;
@@ -403,6 +406,12 @@ body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-muted);
+}
+
+.stat-label .info-trigger {
+  text-transform: none;
+  letter-spacing: normal;
+  flex-shrink: 0;
 }
 
 /* Stat value = `stat` (§3): display 30/1.05, tabular. Numbers are the hero. */
@@ -615,6 +624,41 @@ body {
   padding: 8px 16px;
 }
 
+/* Non-destructive single-action dismiss (info dialogs) — primary button treatment. */
+.dialog-ok {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 44px;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--r-md);
+  padding: 8px 16px;
+}
+
+.dialog-ok:active {
+  background: var(--accent-press);
+}
+
+/* Small "?" glyph trigger for InfoTip — typographic, not an icon (DESIGN.md §9). */
+.info-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  min-height: 0;
+  padding: 0;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1;
+}
+
 .scope-select {
   font-family: var(--font-body);
   font-size: 15px;
@@ -634,6 +678,9 @@ body {
 
 /* Section heading = h2 (§3). */
 .settings-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-display);
   color: var(--text-h);
   font-size: 20px;
