@@ -211,8 +211,12 @@ Purposeful and subtle. Motion clarifies; it never performs.
 
 - **Durations:** 150ms (micro: press, toggle), 200–250ms (transitions: sheets,
   fades). Easing: `ease-out` for entrances, `ease-in` for exits.
-- **Save confirmation:** a gentle, satisfying acknowledgement (e.g. the existing
-  fade-in flash, refined) — reassuring, not celebratory. No confetti.
+- **Save confirmation:** an energized, affirmative acknowledgement — the Save
+  button bounces, a soft accent ring pulses outward from it, and a checkmark
+  badge draws itself in. The celebration is for completing the habit, not a
+  verdict on the number (principle 6 still applies — no judgment on the
+  weight itself). Still single-shot and restrained: no confetti/particles,
+  no looping.
 - **Chart:** line may draw/fade in once on mount. No looping or bouncing.
 - **Sheets:** slide up from bottom; dialogs fade + subtle scale.
 - **Always** honor `@media (prefers-reduced-motion: reduce)` — drop to instant
