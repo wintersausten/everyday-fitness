@@ -112,6 +112,11 @@ export default function TrendChart({
     return () => clearTimeout(id)
   }, [animate])
 
+  // Which chapter (initiative span) the hovered/selected point belongs to, so
+  // its band can highlight — the tooltip alone doesn't tie a point back to a
+  // chapter in All-data scope.
+  const [activeChapterId, setActiveChapterId] = useState<string | null>(null)
+
   if (entries.length === 0) {
     return <div className="chart-card chart-empty">No entries in this range.</div>
   }
@@ -127,28 +132,45 @@ export default function TrendChart({
   // clips partially-outside bands to the chart area.
   const tMin = data[0].t
   const tMax = data[data.length - 1].t
-  const visibleChapters = (chapters ?? []).filter(
-    (c) => dayToLocalDate(c.from).getTime() <= tMax && dayToLocalDate(c.to).getTime() >= tMin,
-  )
+  const chaptersWithSpan = (chapters ?? []).map((c) => ({
+    ...c,
+    tFrom: dayToLocalDate(c.from).getTime(),
+    tTo: dayToLocalDate(c.to).getTime(),
+  }))
+  const visibleChapters = chaptersWithSpan.filter((c) => c.tFrom <= tMax && c.tTo >= tMin)
 
   return (
     <div className="chart-card">
       <ResponsiveContainer width="100%" height={260}>
-        <LineChart data={data} margin={{ top: 8, right: 12, bottom: 0, left: -8 }}>
+        <LineChart
+          data={data}
+          margin={{ top: 8, right: 12, bottom: 0, left: -8 }}
+          onMouseMove={(state: { activeLabel?: number | string }) => {
+            if (visibleChapters.length === 0) return
+            const t = state.activeLabel === undefined ? NaN : Number(state.activeLabel)
+            const match = visibleChapters.find((c) => t >= c.tFrom && t <= c.tTo)
+            setActiveChapterId(match?.id ?? null)
+          }}
+          onMouseLeave={() => setActiveChapterId(null)}
+        >
           {/* Minimal, muted grid (§7) — few lines, hairline color. */}
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
-          {visibleChapters.map((c, i) => (
-            <ReferenceArea
-              key={c.id}
-              x1={dayToLocalDate(c.from).getTime()}
-              x2={dayToLocalDate(c.to).getTime()}
-              ifOverflow="hidden"
-              fill="var(--accent)"
-              fillOpacity={i % 2 ? 0.12 : 0.06}
-              stroke="none"
-              label={{ value: c.name, position: 'insideTop', fontSize: 11, fill: 'var(--text-muted)' }}
-            />
-          ))}
+          {visibleChapters.map((c, i) => {
+            const isActive = c.id === activeChapterId
+            return (
+              <ReferenceArea
+                key={c.id}
+                x1={c.tFrom}
+                x2={c.tTo}
+                ifOverflow="hidden"
+                fill="var(--accent)"
+                fillOpacity={isActive ? 0.28 : i % 2 ? 0.12 : 0.06}
+                stroke={isActive ? 'var(--accent)' : 'none'}
+                strokeOpacity={isActive ? 0.6 : 0}
+                label={{ value: c.name, position: 'insideTop', fontSize: 11, fill: 'var(--text-muted)' }}
+              />
+            )
+          })}
           {/* Goal is a target, not a data series (§7): dashed line in --ink. */}
           {goal && (
             <ReferenceLine
