@@ -69,7 +69,22 @@ export default function SettingsScreen() {
       </section>
 
       <section className="settings-section">
-        <h2 className="settings-heading">Smoothing</h2>
+        <h2 className="settings-heading">
+          Smoothing
+          <InfoTip label="About trend lines" title="Trend lines">
+            <p>
+              <strong>7d avg</strong> is the mean of your entries over the trailing 7 calendar
+              days.
+            </p>
+            <p>
+              <strong>EMA</strong> (exponential moving average) weights recent entries more
+              heavily — it reacts faster to a new trend but is smoother than raw data.
+            </p>
+            <p>
+              <strong>Off</strong> shows your raw logged weights with no smoothing.
+            </p>
+          </InfoTip>
+        </h2>
         <SmoothingToggle
           value={settings?.smoothing ?? 'ma7'}
           onChange={(next) => void updateSettings({ smoothing: next })}

@@ -308,17 +308,6 @@ body {
   margin-bottom: 12px;
 }
 
-.smoothing-toggle-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.smoothing-toggle-row .range-chips {
-  margin-bottom: 0;
-}
-
 /* Pill chips/toggles (§8): --r-pill, active = accent fill. */
 .range-chip {
   font-family: var(--font-body);
