@@ -29,6 +29,7 @@
   /* Motion — DESIGN.md §6. */
   --dur-micro: 150ms;
   --dur-trans: 220ms;
+  --dur-celebrate: 480ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
 
@@ -221,6 +222,7 @@ body {
 
 /* Primary button (§8): accent fill, body-strong, --r-md, ≥44px, roomy padding. */
 .save-button {
+  position: relative;
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
@@ -237,7 +239,55 @@ body {
   background: var(--accent-press);
 }
 
+/* Save confirmation (§6): button bounce + a pulse ring radiating from it.
+   `forwards` matters here — the `celebrate` class now stays on the button
+   until the day changes, well past the animation's one-shot run, so it must
+   hold its faded-out end state rather than snapping back to a visible ring. */
+.save-button.celebrate {
+  animation: save-bounce var(--dur-celebrate) var(--ease-out) forwards;
+}
+
+.save-button.celebrate::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--accent);
+  border-radius: inherit;
+  animation: pulse-ring var(--dur-celebrate) var(--ease-out) forwards;
+  pointer-events: none;
+}
+
+@keyframes save-bounce {
+  0% {
+    transform: scale(1);
+  }
+
+  35% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* Save confirmation (§6): affirmative badge, checkmark draws itself in. */
 .saved-flash {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   color: var(--accent);
   font-family: var(--font-body);
   font-size: 14px;
@@ -245,7 +295,7 @@ body {
   margin: 0;
   min-height: 1.5em;
   opacity: 0;
-  transform: translateY(4px);
+  transform: translateY(4px) scale(0.92);
   transition:
     opacity var(--dur-trans) var(--ease-out),
     transform var(--dur-trans) var(--ease-out);
@@ -253,7 +303,33 @@ body {
 
 .saved-flash.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+}
+
+.saved-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--r-pill);
+  background: var(--accent-soft);
+}
+
+.saved-check svg {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+}
+
+.saved-flash.visible .saved-check svg {
+  animation: checkmark-draw var(--dur-celebrate) var(--ease-out) forwards;
+}
+
+@keyframes checkmark-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .history-list {

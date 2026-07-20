@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import DayPicker from '../components/DayPicker.tsx'
 import WeightInput from '../components/WeightInput.tsx'
@@ -15,7 +15,6 @@ export default function LogScreen() {
   const [touched, setTouched] = useState(false)
   const [error, setError] = useState<string>()
   const [saved, setSaved] = useState(false)
-  const savedTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   const settings = useLiveQuery(getSettings, [])
   const unit: Unit = settings?.displayUnit ?? 'lb'
@@ -26,12 +25,11 @@ export default function LogScreen() {
     setDraft(entry ? String(displayWeight(entry, unit)) : '')
   }, [entry, unit, touched])
 
-  useEffect(() => () => clearTimeout(savedTimer.current), [])
-
   const changeDay = (day: DayString) => {
     setSelectedDay(day)
     setTouched(false)
     setError(undefined)
+    setSaved(false)
   }
 
   const toggleUnit = (next: Unit) => {
@@ -48,12 +46,14 @@ export default function LogScreen() {
       setError(parsed.error)
       return
     }
+    // Drop to false first so a resubmit while `saved` is already true still
+    // restarts the celebration — the browser commits this render before the
+    // async write resolves, so the CSS animations replay from scratch.
+    setSaved(false)
     void upsertEntry(selectedDay, { value: parsed.value, unit }).then(() => {
       setError(undefined)
       setTouched(false)
       setSaved(true)
-      clearTimeout(savedTimer.current)
-      savedTimer.current = setTimeout(() => setSaved(false), 1500)
     })
   }
 
@@ -73,11 +73,23 @@ export default function LogScreen() {
           }}
           onToggleUnit={toggleUnit}
         />
-        <button type="submit" className="save-button">
+        <button type="submit" className={saved ? 'save-button celebrate' : 'save-button'}>
           Save
         </button>
         <p className={saved ? 'saved-flash visible' : 'saved-flash'} aria-live="polite">
-          Saved ✓
+          <span className="saved-check">
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
+              <path
+                d="M5 13l4 4L19 7"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+          Saved
         </p>
       </form>
     </main>
