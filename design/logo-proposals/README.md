@@ -1,11 +1,11 @@
 # Logo proposals
 
-Four logo directions built from the tokens already in `DESIGN.md` (Barlow
+Five logo directions built from the tokens already in `DESIGN.md` (Barlow
 Condensed, Inter, the coral accent, `--r-lg`/pill shapes) — no new icon set,
 illustration, or gradient, per Principle 2 ("identity lives in type and color,
-not chrome").
+not chrome"), with one deliberate exception (E) built as a new glyph.
 
-Open `preview.html` in a browser to see all four on both light-paper and
+Open `preview.html` in a browser to see all five on both light-paper and
 dark-charcoal grounds.
 
 ## Starting point
@@ -30,13 +30,20 @@ mark. None of the proposals build on it.
   from the Save-confirmation animation (`src/screens/LogScreen.tsx`) — stands
   for "you showed up today," not a verdict on the number, so it stays clear of
   the no-judgment rule in DESIGN.md §5/§6.
+- **E — Cycle-to-chart mark.** A near-full circular loop (the daily repeat)
+  breaks its own circumference and continues as a straight rising line ending
+  in a small chart-arrow tip — "every day," but with progress — drawn as one
+  continuous single-weight stroke. The only genuinely new glyph in the set; it
+  stays abstract (a mark about the product's premise, not a plot of anyone's
+  actual weight) so it doesn't run into the no-judgment rule either.
 
 ## Starting recommendation
 
-**B for the wordmark, C for the icon.** B costs nothing to learn since it
-reuses a pattern the app already teaches; C exists because something square
-and legible at 16–32px is a real, separate requirement a wordmark can't meet.
-A and D remain viable alternates.
+**E for the icon and primary mark, B for the wordmark lockup.** E is the
+strongest single symbol here — it says something specific about this product
+rather than borrowing existing type or UI, and it holds up down to a 28px
+favicon. Paired with B for full-width placements, it covers both icon and
+wordmark needs with one coherent idea. A, C, and D remain viable alternates.
 
 Nothing here has been wired into the app — this is proposals only. Adopting a
 direction means replacing `public/favicon.svg` and regenerating

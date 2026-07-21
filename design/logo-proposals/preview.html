@@ -192,6 +192,7 @@ section.block:first-of-type {
 .tile-label {
   position: relative;
 }
+svg { overflow: visible; }
 
 /* --- Concept A: wordmark + accent full stop --- */
 .wm-a {
@@ -303,6 +304,33 @@ section.block:first-of-type {
   color: var(--text-muted);
 }
 
+/* --- Concept E: cycle-to-chart mark --- */
+.lockup-e { display: flex; align-items: center; gap: 14px; }
+.lockup-e svg { flex: none; }
+.tile.light .lockup-e svg { color: #e85a2c; }
+.tile.dark .lockup-e svg { color: #ff6f43; }
+.wm-e {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.tile.light .wm-e { color: #1c1e24; }
+.tile.dark .wm-e { color: #f4f2ef; }
+.badge-e {
+  width: 92px;
+  height: 92px;
+  border-radius: 22px;
+  background: #e85a2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.badge-e.sm { width: 44px; height: 44px; border-radius: 11px; }
+.badge-e.xs { width: 28px; height: 28px; border-radius: 7px; }
+.badge-e svg { color: #fbf9f6; width: 62%; height: 62%; }
+
 /* --- recommendation --- */
 .reco {
   background: var(--accent-soft);
@@ -331,7 +359,7 @@ footer {
 <main>
   <p class="eyebrow">Everyday Fitness — Brand</p>
   <h1>Logo proposals</h1>
-  <p class="dek">Four directions, all built from tokens already in <code>DESIGN.md</code> — Barlow Condensed, Inter, the coral accent, and the rounded-square/pill shape language. No new icon set, illustration, or gradient (Principle 2). Each tile shows the mark on both the light-paper and dark-charcoal grounds it actually has to survive on.</p>
+  <p class="dek">Five directions, all built from tokens already in <code>DESIGN.md</code> — Barlow Condensed, Inter, the coral accent, and the rounded-square/pill shape language. No new icon set, illustration, or gradient (Principle 2). Each tile shows the mark on both the light-paper and dark-charcoal grounds it actually has to survive on.</p>
 
   <section class="block" style="margin-top:32px; border-top:none; padding-top:0;">
     <p class="concept-label" style="margin-bottom:12px;">Where we're starting from</p>
@@ -404,10 +432,46 @@ footer {
     </div>
   </section>
 
+  <section class="block">
+    <div class="concept-head">
+      <p class="concept-label">E — Cycle-to-chart mark</p>
+      <span class="concept-tag">Mark + icon, new glyph</span>
+    </div>
+    <p class="rationale">A near-full loop — the daily repeat — breaks its own circumference and keeps going as a straight rising line with a small chart-arrow tip. <b>Every day, but with progress:</b> the habit (cycle) and the payoff (trend) drawn as one continuous, single-weight stroke, no lift of the pen. It's the only proposal that is a genuinely new glyph rather than reused type or an existing UI path — deliberate, since Principle 2 sets a high bar for adding one. It stays abstract (a brand mark about the product's premise, not a plot of anyone's actual weight), so it doesn't run into §5/§6's no-judgment-on-direction rule.</p>
+    <div class="tiles">
+      <div class="tile light">
+        <div class="lockup-e">
+          <svg viewBox="4.5 0.2 24.5 28.7" width="34" height="40" aria-hidden="true"><path d="M 7.99 25.31 A 11.00 11.00 0 1 1 13.24 8.66 L 25.45 4.22 M 25.45 4.22 L 20.86 8.81 M 25.45 4.22 L 18.98 3.65" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="wm-e">Everyday Fitness</span>
+        </div>
+      </div>
+      <div class="tile dark">
+        <div class="lockup-e">
+          <svg viewBox="4.5 0.2 24.5 28.7" width="34" height="40" aria-hidden="true"><path d="M 7.99 25.31 A 11.00 11.00 0 1 1 13.24 8.66 L 25.45 4.22 M 25.45 4.22 L 20.86 8.81 M 25.45 4.22 L 18.98 3.65" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="wm-e">Everyday Fitness</span>
+        </div>
+      </div>
+    </div>
+    <div class="scale-row">
+      <div class="scale-item">
+        <div class="badge-e"><svg viewBox="4.5 0.2 24.5 28.7" aria-hidden="true"><path d="M 7.99 25.31 A 11.00 11.00 0 1 1 13.24 8.66 L 25.45 4.22 M 25.45 4.22 L 20.86 8.81 M 25.45 4.22 L 18.98 3.65" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>96px</span>
+      </div>
+      <div class="scale-item">
+        <div class="badge-e sm"><svg viewBox="4.5 0.2 24.5 28.7" aria-hidden="true"><path d="M 7.99 25.31 A 11.00 11.00 0 1 1 13.24 8.66 L 25.45 4.22 M 25.45 4.22 L 20.86 8.81 M 25.45 4.22 L 18.98 3.65" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>44px</span>
+      </div>
+      <div class="scale-item">
+        <div class="badge-e xs"><svg viewBox="4.5 0.2 24.5 28.7" aria-hidden="true"><path d="M 7.99 25.31 A 11.00 11.00 0 1 1 13.24 8.66 L 25.45 4.22 M 25.45 4.22 L 20.86 8.81 M 25.45 4.22 L 18.98 3.65" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>28px — tab favicon</span>
+      </div>
+    </div>
+  </section>
+
   <div class="reco">
     <h2>A starting recommendation</h2>
-    <p><b>B for the wordmark, C for the icon.</b> B is the only option that actively reinforces an existing pattern rather than adding a new one — it costs nothing to learn. C is there because something square and legible at 16–32px is a real, separate requirement (browser tab, home screen) that a wordmark alone can't satisfy.</p>
-    <p>A and D stay on the table as alternates — A if a single-line lockup is needed for tight header space, D if the product wants the logo itself to carry a small piece of the app's own motion language.</p>
+    <p><b>E for the icon and primary mark, B for the wordmark lockup.</b> E is the strongest single symbol here — it's the only proposal built to say something specific about this product (show up daily, the trend is the reward) rather than borrowing existing type or UI. Paired with B's eyebrow/headline lockup for full-width placements, it covers both icon and wordmark needs with one coherent idea.</p>
+    <p>A, C, and D stay on the table as alternates — A if a single-line lockup is needed for tight header space, C if a letterform monogram is preferred over an abstract mark, D if the product wants the icon to visibly reuse the Save-confirmation checkmark instead.</p>
   </div>
 
   <footer>Assets: <code>design/logo-proposals/</code> in the repo. Colors and type per <code>DESIGN.md</code> §2–§3.</footer>
