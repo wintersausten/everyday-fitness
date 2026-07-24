@@ -1,11 +1,11 @@
 # Logo proposals
 
-Five logo directions built from the tokens already in `DESIGN.md` (Barlow
+Seven logo directions built from the tokens already in `DESIGN.md` (Barlow
 Condensed, Inter, the coral accent, `--r-lg`/pill shapes) — no new icon set,
 illustration, or gradient, per Principle 2 ("identity lives in type and color,
-not chrome"), with one deliberate exception (E) built as a new glyph.
+not chrome"), with three deliberate exceptions (E, F, G) built as new glyphs.
 
-Open `preview.html` in a browser to see all five on both light-paper and
+Open `preview.html` in a browser to see all seven on both light-paper and
 dark-charcoal grounds.
 
 ## Starting point
@@ -33,17 +33,31 @@ mark. None of the proposals build on it.
 - **E — Cycle-to-chart mark.** A near-full circular loop (the daily repeat)
   breaks its own circumference and continues as a straight rising line ending
   in a small chart-arrow tip — "every day," but with progress — drawn as one
-  continuous single-weight stroke. The only genuinely new glyph in the set; it
-  stays abstract (a mark about the product's premise, not a plot of anyone's
-  actual weight) so it doesn't run into the no-judgment rule either.
+  continuous single-weight stroke. It stays abstract (a mark about the
+  product's premise, not a plot of anyone's actual weight) so it doesn't run
+  into the no-judgment rule either.
+- **F — "Every Day" arrow-letterform wordmark.** The `E`'s spine is an upward
+  arrow, the `D`'s spine a downward one — the exact ↑ / ↓ glyphs
+  `StatCards.tsx` already draws for weight direction, built directly into the
+  logotype (custom-drawn letters for `E`/`D`, real Barlow Condensed 600 for
+  the rest). Both arrows share the same weight and color: up in "Every," down
+  in "Day," neither singled out — the wordmark enacts §5/§6's no-judgment
+  rule in its own structure, not just its copy.
+- **G — Sun-in-repeat icon.** A repeat/cycle ring (every) wrapped around a sun
+  (day) — the app's own name compressed into one square glyph. The sun's core
+  is a rounded square rather than a circle, tying it to `--r-lg` and the
+  Concept C badge language instead of reading as a generic weather icon.
+  Verified legible down to a 28px favicon.
 
 ## Starting recommendation
 
-**E for the icon and primary mark, B for the wordmark lockup.** E is the
-strongest single symbol here — it says something specific about this product
-rather than borrowing existing type or UI, and it holds up down to a 28px
-favicon. Paired with B for full-width placements, it covers both icon and
-wordmark needs with one coherent idea. A, C, and D remain viable alternates.
+**G for the icon, F for the wordmark.** Together they tell the same idea two
+ways: G compresses "every" (the repeat ring) and "day" (the sun) into one
+square glyph for favicon/home-screen use; F spells the same duality out as a
+wordmark, using the app's own ↑/↓ direction glyphs as the E and D's spines.
+Neither borrows an existing UI element wholesale — both are original marks
+built from the system's shapes, type, and color. A, B, C, D, and E remain
+viable alternates.
 
 Nothing here has been wired into the app — this is proposals only. Adopting a
 direction means replacing `public/favicon.svg` and regenerating
