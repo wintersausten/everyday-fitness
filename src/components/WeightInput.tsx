@@ -1,9 +1,12 @@
+import type { RefObject } from 'react'
 import type { Unit } from '../db/types.ts'
 
 interface WeightInputProps {
   value: string
   unit: Unit
   error?: string
+  /** Handle on the field itself, so the screen can put the caret there. */
+  inputRef?: RefObject<HTMLInputElement | null>
   onChange: (value: string) => void
   onToggleUnit: (unit: Unit) => void
 }
@@ -14,6 +17,7 @@ export default function WeightInput({
   value,
   unit,
   error,
+  inputRef,
   onChange,
   onToggleUnit,
 }: WeightInputProps) {
@@ -21,6 +25,7 @@ export default function WeightInput({
     <div className="weight-input">
       <div className="weight-input-row">
         <input
+          ref={inputRef}
           type="text"
           inputMode="decimal"
           className="weight-field"
