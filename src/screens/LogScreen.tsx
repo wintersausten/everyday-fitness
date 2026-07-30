@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import DayPicker from '../components/DayPicker.tsx'
 import WeightInput from '../components/WeightInput.tsx'
@@ -8,7 +8,12 @@ import type { DayString, Unit } from '../db/types.ts'
 import { todayLocal } from '../lib/dates.ts'
 import { displayWeight, parseWeightInput } from '../lib/units.ts'
 
-export default function LogScreen() {
+interface LogScreenProps {
+  /** False while a modal owns focus (the first-launch welcome), true once it lets go. */
+  autoFocus?: boolean
+}
+
+export default function LogScreen({ autoFocus = true }: LogScreenProps) {
   const [selectedDay, setSelectedDay] = useState<DayString>(todayLocal)
   const [draft, setDraft] = useState('')
   // True while the field holds unsaved typing; blocks prefill from clobbering it.
@@ -16,9 +21,17 @@ export default function LogScreen() {
   const [error, setError] = useState<string>()
   const [saved, setSaved] = useState(false)
 
+  const weightField = useRef<HTMLInputElement>(null)
+
   const settings = useLiveQuery(getSettings, [])
   const unit: Unit = settings?.displayUnit ?? 'lb'
   const entry = useLiveQuery(() => getEntry(selectedDay), [selectedDay])
+
+  // Opening the log puts the caret in the weight field — typing a number is the
+  // whole reason to be here. Runs again when the welcome modal releases focus.
+  useEffect(() => {
+    if (autoFocus) weightField.current?.focus()
+  }, [autoFocus])
 
   useEffect(() => {
     if (touched) return
@@ -66,6 +79,7 @@ export default function LogScreen() {
           value={draft}
           unit={unit}
           error={error}
+          inputRef={weightField}
           onChange={(value) => {
             setDraft(value)
             setTouched(true)
