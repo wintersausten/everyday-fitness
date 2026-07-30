@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type FormEvent } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import DayPicker from '../components/DayPicker.tsx'
 import WeightInput from '../components/WeightInput.tsx'
@@ -6,6 +6,7 @@ import { getEntry, upsertEntry } from '../db/entries.ts'
 import { getSettings, updateSettings } from '../db/settings.ts'
 import type { DayString, Unit } from '../db/types.ts'
 import { todayLocal } from '../lib/dates.ts'
+import { shouldAutoFocus } from '../lib/focus.ts'
 import { displayWeight, parseWeightInput } from '../lib/units.ts'
 
 interface LogScreenProps {
@@ -29,8 +30,10 @@ export default function LogScreen({ autoFocus = true }: LogScreenProps) {
 
   // Opening the log puts the caret in the weight field — typing a number is the
   // whole reason to be here. Runs again when the welcome modal releases focus.
-  useEffect(() => {
-    if (autoFocus) weightField.current?.focus()
+  // Layout effect, not a passive one: arriving via a tab tap, this still runs
+  // inside that tap, which is what lets a phone raise its keyboard.
+  useLayoutEffect(() => {
+    if (autoFocus && shouldAutoFocus()) weightField.current?.focus()
   }, [autoFocus])
 
   useEffect(() => {
