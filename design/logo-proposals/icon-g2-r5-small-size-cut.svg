@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M 40.80 10.21 A 23.5 23.5 0 1 1 19.55 12.07" fill="none" stroke="#e85a2c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 27.60 7.04 L 22.09 16.14 L 17.00 8.00 Z" fill="#e85a2c" stroke="#e85a2c" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M 23.00 32.00 A 9 9 0 1 0 41.00 32.00 A 9 9 0 1 0 23.00 32.00 Z" fill="#e85a2c" stroke="#e85a2c" stroke-width="3"/>
+  <path d="M 44.12 39.00 L 48.02 41.25 M 32.00 46.00 L 32.00 50.50 M 19.88 39.00 L 15.98 41.25 M 19.88 25.00 L 15.98 22.75 M 32.00 18.00 L 32.00 13.50 M 44.12 25.00 L 48.02 22.75" fill="none" stroke="#e85a2c" stroke-width="3" stroke-linecap="round"/>
+</svg>

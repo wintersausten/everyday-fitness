@@ -52,14 +52,25 @@ mark. None of the proposals build on it.
   - `icon-g4-solid-core.svg`: filled core, alternating ray lengths.
   - `icon-g5-favicon-cut.svg`: four rays and a heavier core, for 16–32px.
 
+- **G2, refined: round sun, single arrow (5 iterations).** Fixes G2's
+  off-centre arrowhead. Its head pointed along the circle's tangent at the
+  tip, while the line feeding it was still curving, so the head sat about 6°
+  outward and the line met the side of the "V". Now the line ends in the
+  middle of the head's base and the head continues in the line's direction.
+  - `icon-g2-r1-chevron-centred.svg`: chevron rebuilt to sit evenly across the ring.
+  - `icon-g2-r2-solid-head.svg`: solid head, arrow on the right as sketched.
+  - `icon-g2-r3-solid-head-gap-at-top.svg`: gap moved to 12 o'clock, balanced left-to-right.
+  - `icon-g2-r4-solid-sun-solid-head.svg`: as R3 with a filled sun.
+  - `icon-g2-r5-small-size-cut.svg`: six rays and a bigger sun, for 16–32px.
+
 ## Starting recommendation
 
-**G1 for the icon, G5 as its small-size version, F for the wordmark.** A
-single arrow reads as "keep going," which fits a daily habit better than G3's
-two arrows, even though G3 is the more literal "sync." The rounded-square core
-keeps it tied to `--r-lg` rather than reading like a weather icon. None of the
-eight-ray versions stay legible at 16px, so G5 is the browser-tab version. F
-carries the same "every day" idea as a wordmark. A–E remain viable alternates.
+**R4 for the icon, R5 as its small-size version, F for the wordmark.** The
+solid head hides the join between line and arrowhead, the gap at 12 o'clock
+keeps the glyph balanced, and the filled sun stops the head from being the
+only heavy shape. Eight rays blur below about 32px, so R5 is the browser-tab
+version. R2 is the same fix with the arrow on the right, as in the original
+sketch. Everything else stays as an alternate.
 
 Nothing here has been wired into the app — this is proposals only. Adopting a
 direction means replacing `public/favicon.svg` and regenerating
