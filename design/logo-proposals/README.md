@@ -1,5 +1,9 @@
 # Logo proposals
 
+> **Decided:** R2 (round sun, single arrow, solid head) with the sun filled in.
+> It is now the app icon and favicon. See `DESIGN.md` §11; the sources are in
+> `design/logo/`. Everything below is the exploration that led there.
+
 Seven logo directions built from the tokens already in `DESIGN.md` (Barlow
 Condensed, Inter, the coral accent, `--r-lg`/pill shapes) — no new icon set,
 illustration, or gradient, per Principle 2 ("identity lives in type and color,

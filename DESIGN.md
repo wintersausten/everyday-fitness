@@ -302,6 +302,7 @@ Locked:
       confirmed against the Log mock in both the accent and font swatch review.
 - [x] **Body font: Inter** (chosen for reliable tabular figures + neutral
       legibility).
+- [x] **Logo: round sun in a single sync arrow** (see §11).
 
 Still open:
 
@@ -309,3 +310,47 @@ Still open:
       screens once implemented; the base accent is settled.
 - [ ] Whether nav stays purely text or gets an optional minimal icon later
       (default per this doc: text-only).
+- [ ] Whether the logo appears anywhere inside the app UI (default: no, it is
+      the app icon and favicon only).
+
+---
+
+## 11. Logo & app icon
+
+A round sun inside a single sync arrow: the sun is the **day**, the arrow
+coming round again is **every**. It is the app's only illustrative mark, and
+it is a brand asset, not UI iconography; §1 and §9 still keep the interface
+itself icon-free.
+
+### Construction
+
+- 64-unit grid, centre (32, 32). Ring radius 23.5, stroke 3.
+- Ring runs anticlockwise from about 1 o'clock, round the left and bottom, and
+  up the right side. A gap is left at the top right.
+- Sun: **solid** circle radius 8, eight rays from radius 13 to 18. Solid
+  rather than outline because it survives small sizes: at 16px the filled
+  centre still reads as a sun, where an outline closes up into a smudge.
+- **Arrowhead:** solid, isosceles, 9.5 long × 9.6 wide. The ring ends exactly
+  at the centre of the head's base, and the head points along the ring's
+  tangent there. Do not put the line's end at the arrowhead's tip: a straight
+  head on a curving line then sits about 6° outward and looks off-centre.
+
+### Colour and files
+
+| File (`public/`)         | Size        | Treatment                                          |
+| ------------------------ | ----------- | -------------------------------------------------- |
+| `favicon.svg`            | vector      | Coral `#E85A2C` rounded tile, paper `#FBF9F6` mark; stroke thickened to 4.5 for small sizes |
+| `favicon.ico`            | 16, 32, 48  | Same as `favicon.svg`, for browsers without SVG favicons |
+| `pwa-192.png`, `pwa-512.png` | 192, 512 | Rounded coral tile, transparent corners (manifest `any`) |
+| `pwa-512-maskable.png`   | 512         | Full-bleed coral, mark inside the 80% safe circle (manifest `maskable`) |
+| `apple-touch-icon.png`   | 180         | Full-bleed coral, opaque; iOS rounds the corners   |
+
+Inside the tile the mark is drawn at 68% of the tile's width, stroke 3.4
+(4.5 in the favicon). On its own, outside a tile, the mark is drawn in
+`--accent`: `#E85A2C` on light, `#FF6F43` on dark.
+
+Vector sources live in `design/logo/`: `mark.svg` (the mark alone, in coral),
+`app-icon-rounded.svg` (rounded tile) and `app-icon-fullbleed.svg` (square
+tile). Rebuild each PNG by rendering its SVG at that exact size; never
+downscale a large PNG, because the rays turn to mush. Exploration and
+rejected directions are in `design/logo-proposals/`.
