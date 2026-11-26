@@ -331,21 +331,65 @@ svg { overflow: visible; }
 .badge-e.xs { width: 28px; height: 28px; border-radius: 7px; }
 .badge-e svg { color: #fbf9f6; width: 62%; height: 62%; }
 
-/* --- Concept G: sun-in-repeat icon --- */
-.tile.light .icon-g { color: #e85a2c; }
-.tile.dark .icon-g { color: #ff6f43; }
-.badge-g {
-  width: 92px;
-  height: 92px;
-  border-radius: 22px;
+/* --- Concept G: sun-in-sync iterations --- */
+.iters { display: flex; flex-direction: column; gap: 24px; }
+.iter-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.iter-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--text-h);
+}
+.iter-note { font-size: 14px; color: var(--text-muted); }
+.iter-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+@media (max-width: 560px) {
+  .iter-row { grid-template-columns: repeat(2, 1fr); }
+}
+.iter-tile {
+  aspect-ratio: 1;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.iter-tile.light { background: #fbf9f6; color: #e85a2c; box-shadow: inset 0 0 0 1px var(--border); }
+.iter-tile.dark { background: #15171c; color: #ff6f43; }
+.iter-tile.surface { background: var(--surface); box-shadow: inset 0 0 0 1px var(--border); }
+.iter-tile > svg { width: 62%; height: 62%; }
+.iter-badge {
   background: #e85a2c;
+  color: #fbf9f6;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.badge-g.sm { width: 44px; height: 44px; border-radius: 11px; }
-.badge-g.xs { width: 28px; height: 28px; border-radius: 7px; }
-.badge-g svg { color: #fbf9f6; width: 66%; height: 66%; }
+.iter-badge svg { width: 68%; height: 68%; }
+.iter-badge.lg { width: 70%; height: 70%; border-radius: 22%; }
+.iter-badge.px28 { width: 28px; height: 28px; border-radius: 7px; }
+.iter-badge.px16 { width: 16px; height: 16px; border-radius: 4px; }
+.iter-size {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
 
 /* --- Concept F: "Every Day" arrow-letterform wordmark --- */
 .wm-f-svg { display: block; }
@@ -379,7 +423,7 @@ footer {
 <main>
   <p class="eyebrow">Everyday Fitness — Brand</p>
   <h1>Logo proposals</h1>
-  <p class="dek">Seven directions, all built from tokens already in <code>DESIGN.md</code> — Barlow Condensed, Inter, the coral accent, and the rounded-square/pill shape language. No new icon set, illustration, or gradient (Principle 2). Each tile shows the mark on both the light-paper and dark-charcoal grounds it actually has to survive on.</p>
+  <p class="dek">Seven directions (the last with five iterations), all built from tokens already in <code>DESIGN.md</code> — Barlow Condensed, Inter, the coral accent, and the rounded-square/pill shape language. No new icon set, illustration, or gradient (Principle 2). Each tile shows the mark on both the light-paper and dark-charcoal grounds it actually has to survive on.</p>
 
   <section class="block" style="margin-top:32px; border-top:none; padding-top:0;">
     <p class="concept-label" style="margin-bottom:12px;">Where we're starting from</p>
@@ -533,57 +577,77 @@ footer {
 
   <section class="block">
     <div class="concept-head">
-      <p class="concept-label">G — Sun-in-repeat icon</p>
-      <span class="concept-tag">Icon / favicon, new glyph</span>
+      <p class="concept-label">G — Sun in a sync arrow</p>
+      <span class="concept-tag">Icon / favicon · 5 iterations</span>
     </div>
-    <p class="rationale">A repeat/cycle ring (<b>every</b>) wrapped around a sun (<b>day</b>) — the two words of the app's own name, drawn as one compact glyph instead of spelled out. The sun's core is a rounded square, not a circle, so it echoes <code>--r-lg</code> and the badge language from Concept C rather than reading as a generic weather icon. Purpose-built as a square mark, it holds up at favicon size (tested down to 28px) in a way a wordmark can't.</p>
-    <div class="tiles">
-      <div class="tile light">
-        <svg class="icon-g" viewBox="0 0 64 64" width="72" height="72" aria-hidden="true">
-          <path d="M 55.49 23.45 A 25.00 25.00 0 1 1 44.50 10.35" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-          <path d="M 27.50 23.00 L 36.50 23.00 A 4.50 4.50 0 0 1 41.00 27.50 L 41.00 36.50 A 4.50 4.50 0 0 1 36.50 41.00 L 27.50 41.00 A 4.50 4.50 0 0 1 23.00 36.50 L 23.00 27.50 A 4.50 4.50 0 0 1 27.50 23.00 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-          <path d="M 45.50 32.00 L 52.00 32.00 M 41.55 41.55 L 46.14 46.14 M 32.00 45.50 L 32.00 52.00 M 22.45 41.55 L 17.86 46.14 M 18.50 32.00 L 12.00 32.00 M 22.45 22.45 L 17.86 17.86 M 32.00 18.50 L 32.00 12.00 M 41.55 22.45 L 46.14 17.86" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-        </svg>
+    <p class="rationale">A sync arrow (<b>every</b>) circling a sun (<b>day</b>) — the app's name as one square glyph, redrawn from your sketch. Every iteration shares one 64-unit grid, one stroke weight, and the same arrowhead geometry, so they differ only where the idea differs: the sun's core, the ray count, and one arrow or two. Each row shows the mark on paper, on charcoal, as a filled home-screen icon, and at true favicon sizes.</p>
+    <div class="iters">
+      <div class="iter">
+        <div class="iter-head"><span class="iter-name">G1 — As sketched</span><span class="iter-note">One sync arrow, rounded-square core, eight rays.</span></div>
+        <div class="iter-row">
+          <div class="iter-tile light"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile dark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile light"><div class="iter-badge lg"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg></div></div>
+          <div class="iter-tile surface">
+            <div class="iter-size"><div class="iter-badge px28"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></div>28px</div>
+            <div class="iter-size"><div class="iter-badge px16"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg></div>16px</div>
+          </div>
+        </div>
       </div>
-      <div class="tile dark">
-        <svg class="icon-g" viewBox="0 0 64 64" width="72" height="72" aria-hidden="true">
-          <path d="M 55.49 23.45 A 25.00 25.00 0 1 1 44.50 10.35" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-          <path d="M 27.50 23.00 L 36.50 23.00 A 4.50 4.50 0 0 1 41.00 27.50 L 41.00 36.50 A 4.50 4.50 0 0 1 36.50 41.00 L 27.50 41.00 A 4.50 4.50 0 0 1 23.00 36.50 L 23.00 27.50 A 4.50 4.50 0 0 1 27.50 23.00 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-          <path d="M 45.50 32.00 L 52.00 32.00 M 41.55 41.55 L 46.14 46.14 M 32.00 45.50 L 32.00 52.00 M 22.45 41.55 L 17.86 46.14 M 18.50 32.00 L 12.00 32.00 M 22.45 22.45 L 17.86 17.86 M 32.00 18.50 L 32.00 12.00 M 41.55 22.45 L 46.14 17.86" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-        </svg>
+      <div class="iter">
+        <div class="iter-head"><span class="iter-name">G2 — Round sun</span><span class="iter-note">Same arrow; a plain circular core reads as 'sun' fastest.</span></div>
+        <div class="iter-row">
+          <div class="iter-tile light"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 24.00 32.00 A 8 8 0 1 0 40.00 32.00 A 8 8 0 1 0 24.00 32.00 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 44.00 32.00 L 49.50 32.00 M 40.49 40.49 L 44.37 44.37 M 32.00 44.00 L 32.00 49.50 M 23.51 40.49 L 19.63 44.37 M 20.00 32.00 L 14.50 32.00 M 23.51 23.51 L 19.63 19.63 M 32.00 20.00 L 32.00 14.50 M 40.49 23.51 L 44.37 19.63" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile dark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 24.00 32.00 A 8 8 0 1 0 40.00 32.00 A 8 8 0 1 0 24.00 32.00 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 44.00 32.00 L 49.50 32.00 M 40.49 40.49 L 44.37 44.37 M 32.00 44.00 L 32.00 49.50 M 23.51 40.49 L 19.63 44.37 M 20.00 32.00 L 14.50 32.00 M 23.51 23.51 L 19.63 19.63 M 32.00 20.00 L 32.00 14.50 M 40.49 23.51 L 44.37 19.63" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile light"><div class="iter-badge lg"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 24.00 32.00 A 8 8 0 1 0 40.00 32.00 A 8 8 0 1 0 24.00 32.00 Z" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><path d="M 44.00 32.00 L 49.50 32.00 M 40.49 40.49 L 44.37 44.37 M 32.00 44.00 L 32.00 49.50 M 23.51 40.49 L 19.63 44.37 M 20.00 32.00 L 14.50 32.00 M 23.51 23.51 L 19.63 19.63 M 32.00 20.00 L 32.00 14.50 M 40.49 23.51 L 44.37 19.63" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg></div></div>
+          <div class="iter-tile surface">
+            <div class="iter-size"><div class="iter-badge px28"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 24.00 32.00 A 8 8 0 1 0 40.00 32.00 A 8 8 0 1 0 24.00 32.00 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M 44.00 32.00 L 49.50 32.00 M 40.49 40.49 L 44.37 44.37 M 32.00 44.00 L 32.00 49.50 M 23.51 40.49 L 19.63 44.37 M 20.00 32.00 L 14.50 32.00 M 23.51 23.51 L 19.63 19.63 M 32.00 20.00 L 32.00 14.50 M 40.49 23.51 L 44.37 19.63" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></div>28px</div>
+            <div class="iter-size"><div class="iter-badge px16"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 58.86 26.08 M 53.47 22.44 L 52.56 28.88" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M 24.00 32.00 A 8 8 0 1 0 40.00 32.00 A 8 8 0 1 0 24.00 32.00 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M 44.00 32.00 L 49.50 32.00 M 40.49 40.49 L 44.37 44.37 M 32.00 44.00 L 32.00 49.50 M 23.51 40.49 L 19.63 44.37 M 20.00 32.00 L 14.50 32.00 M 23.51 23.51 L 19.63 19.63 M 32.00 20.00 L 32.00 14.50 M 40.49 23.51 L 44.37 19.63" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg></div>16px</div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="scale-row">
-      <div class="scale-item">
-        <div class="badge-g"><svg viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M 55.49 23.45 A 25.00 25.00 0 1 1 44.50 10.35" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
-          <path d="M 27.50 23.00 L 36.50 23.00 A 4.50 4.50 0 0 1 41.00 27.50 L 41.00 36.50 A 4.50 4.50 0 0 1 36.50 41.00 L 27.50 41.00 A 4.50 4.50 0 0 1 23.00 36.50 L 23.00 27.50 A 4.50 4.50 0 0 1 27.50 23.00 Z" fill="none" stroke="currentColor" stroke-width="3.4"/>
-          <path d="M 45.50 32.00 L 52.00 32.00 M 41.55 41.55 L 46.14 46.14 M 32.00 45.50 L 32.00 52.00 M 22.45 41.55 L 17.86 46.14 M 18.50 32.00 L 12.00 32.00 M 22.45 22.45 L 17.86 17.86 M 32.00 18.50 L 32.00 12.00 M 41.55 22.45 L 46.14 17.86" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
-        </svg></div>
-        <span>96px</span>
+      <div class="iter">
+        <div class="iter-head"><span class="iter-name">G3 — Two-arrow sync</span><span class="iter-note">Two half-loops chasing each other — the standard sync glyph.</span></div>
+        <div class="iter-row">
+          <div class="iter-tile light"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 10.53 22.44 A 23.50 23.50 0 0 1 53.47 22.44 M 53.47 22.44 L 48.49 19.09 M 53.47 22.44 L 54.30 16.50 M 53.47 41.56 A 23.50 23.50 0 0 1 10.53 41.56 M 10.53 41.56 L 15.51 44.91 M 10.53 41.56 L 9.70 47.50" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile dark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 10.53 22.44 A 23.50 23.50 0 0 1 53.47 22.44 M 53.47 22.44 L 48.49 19.09 M 53.47 22.44 L 54.30 16.50 M 53.47 41.56 A 23.50 23.50 0 0 1 10.53 41.56 M 10.53 41.56 L 15.51 44.91 M 10.53 41.56 L 9.70 47.50" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile light"><div class="iter-badge lg"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 10.53 22.44 A 23.50 23.50 0 0 1 53.47 22.44 M 53.47 22.44 L 48.49 19.09 M 53.47 22.44 L 54.30 16.50 M 53.47 41.56 A 23.50 23.50 0 0 1 10.53 41.56 M 10.53 41.56 L 15.51 44.91 M 10.53 41.56 L 9.70 47.50" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg></div></div>
+          <div class="iter-tile surface">
+            <div class="iter-size"><div class="iter-badge px28"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 10.53 22.44 A 23.50 23.50 0 0 1 53.47 22.44 M 53.47 22.44 L 48.49 19.09 M 53.47 22.44 L 54.30 16.50 M 53.47 41.56 A 23.50 23.50 0 0 1 10.53 41.56 M 10.53 41.56 L 15.51 44.91 M 10.53 41.56 L 9.70 47.50" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></div>28px</div>
+            <div class="iter-size"><div class="iter-badge px16"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 10.53 22.44 A 23.50 23.50 0 0 1 53.47 22.44 M 53.47 22.44 L 48.49 19.09 M 53.47 22.44 L 54.30 16.50 M 53.47 41.56 A 23.50 23.50 0 0 1 10.53 41.56 M 10.53 41.56 L 15.51 44.91 M 10.53 41.56 L 9.70 47.50" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M 45.00 32.00 L 50.00 32.00 M 41.19 41.19 L 44.73 44.73 M 32.00 45.00 L 32.00 50.00 M 22.81 41.19 L 19.27 44.73 M 19.00 32.00 L 14.00 32.00 M 22.81 22.81 L 19.27 19.27 M 32.00 19.00 L 32.00 14.00 M 41.19 22.81 L 44.73 19.27" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg></div>16px</div>
+          </div>
+        </div>
       </div>
-      <div class="scale-item">
-        <div class="badge-g sm"><svg viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M 55.49 23.45 A 25.00 25.00 0 1 1 44.50 10.35" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-          <path d="M 27.50 23.00 L 36.50 23.00 A 4.50 4.50 0 0 1 41.00 27.50 L 41.00 36.50 A 4.50 4.50 0 0 1 36.50 41.00 L 27.50 41.00 A 4.50 4.50 0 0 1 23.00 36.50 L 23.00 27.50 A 4.50 4.50 0 0 1 27.50 23.00 Z" fill="none" stroke="currentColor" stroke-width="4"/>
-          <path d="M 45.50 32.00 L 52.00 32.00 M 41.55 41.55 L 46.14 46.14 M 32.00 45.50 L 32.00 52.00 M 22.45 41.55 L 17.86 46.14 M 18.50 32.00 L 12.00 32.00 M 22.45 22.45 L 17.86 17.86 M 32.00 18.50 L 32.00 12.00 M 41.55 22.45 L 46.14 17.86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-        </svg></div>
-        <span>44px</span>
+      <div class="iter">
+        <div class="iter-head"><span class="iter-name">G4 — Solid core</span><span class="iter-note">Filled core and alternating ray lengths — a bolder, heavier sun than G1.</span></div>
+        <div class="iter-row">
+          <div class="iter-tile light"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.27 26.36 M 53.47 22.44 L 52.49 29.37" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 28.00 24.50 L 36.00 24.50 A 3.5 3.5 0 0 1 39.50 28.00 L 39.50 36.00 A 3.5 3.5 0 0 1 36.00 39.50 L 28.00 39.50 A 3.5 3.5 0 0 1 24.50 36.00 L 24.50 28.00 A 3.5 3.5 0 0 1 28.00 24.50 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 43.50 32.00 L 50.50 32.00 M 32.00 43.50 L 32.00 50.50 M 20.50 32.00 L 13.50 32.00 M 32.00 20.50 L 32.00 13.50 M 40.13 40.13 L 42.96 42.96 M 23.87 40.13 L 21.04 42.96 M 23.87 23.87 L 21.04 21.04 M 40.13 23.87 L 42.96 21.04" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile dark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.27 26.36 M 53.47 22.44 L 52.49 29.37" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 28.00 24.50 L 36.00 24.50 A 3.5 3.5 0 0 1 39.50 28.00 L 39.50 36.00 A 3.5 3.5 0 0 1 36.00 39.50 L 28.00 39.50 A 3.5 3.5 0 0 1 24.50 36.00 L 24.50 28.00 A 3.5 3.5 0 0 1 28.00 24.50 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 43.50 32.00 L 50.50 32.00 M 32.00 43.50 L 32.00 50.50 M 20.50 32.00 L 13.50 32.00 M 32.00 20.50 L 32.00 13.50 M 40.13 40.13 L 42.96 42.96 M 23.87 40.13 L 21.04 42.96 M 23.87 23.87 L 21.04 21.04 M 40.13 23.87 L 42.96 21.04" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile light"><div class="iter-badge lg"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.27 26.36 M 53.47 22.44 L 52.49 29.37" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 28.00 24.50 L 36.00 24.50 A 3.5 3.5 0 0 1 39.50 28.00 L 39.50 36.00 A 3.5 3.5 0 0 1 36.00 39.50 L 28.00 39.50 A 3.5 3.5 0 0 1 24.50 36.00 L 24.50 28.00 A 3.5 3.5 0 0 1 28.00 24.50 Z" fill="currentColor" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><path d="M 43.50 32.00 L 50.50 32.00 M 32.00 43.50 L 32.00 50.50 M 20.50 32.00 L 13.50 32.00 M 32.00 20.50 L 32.00 13.50 M 40.13 40.13 L 42.96 42.96 M 23.87 40.13 L 21.04 42.96 M 23.87 23.87 L 21.04 21.04 M 40.13 23.87 L 42.96 21.04" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg></div></div>
+          <div class="iter-tile surface">
+            <div class="iter-size"><div class="iter-badge px28"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.27 26.36 M 53.47 22.44 L 52.49 29.37" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 28.00 24.50 L 36.00 24.50 A 3.5 3.5 0 0 1 39.50 28.00 L 39.50 36.00 A 3.5 3.5 0 0 1 36.00 39.50 L 28.00 39.50 A 3.5 3.5 0 0 1 24.50 36.00 L 24.50 28.00 A 3.5 3.5 0 0 1 28.00 24.50 Z" fill="currentColor" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M 43.50 32.00 L 50.50 32.00 M 32.00 43.50 L 32.00 50.50 M 20.50 32.00 L 13.50 32.00 M 32.00 20.50 L 32.00 13.50 M 40.13 40.13 L 42.96 42.96 M 23.87 40.13 L 21.04 42.96 M 23.87 23.87 L 21.04 21.04 M 40.13 23.87 L 42.96 21.04" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></div>28px</div>
+            <div class="iter-size"><div class="iter-badge px16"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.27 26.36 M 53.47 22.44 L 52.49 29.37" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M 28.00 24.50 L 36.00 24.50 A 3.5 3.5 0 0 1 39.50 28.00 L 39.50 36.00 A 3.5 3.5 0 0 1 36.00 39.50 L 28.00 39.50 A 3.5 3.5 0 0 1 24.50 36.00 L 24.50 28.00 A 3.5 3.5 0 0 1 28.00 24.50 Z" fill="currentColor" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M 43.50 32.00 L 50.50 32.00 M 32.00 43.50 L 32.00 50.50 M 20.50 32.00 L 13.50 32.00 M 32.00 20.50 L 32.00 13.50 M 40.13 40.13 L 42.96 42.96 M 23.87 40.13 L 21.04 42.96 M 23.87 23.87 L 21.04 21.04 M 40.13 23.87 L 42.96 21.04" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg></div>16px</div>
+          </div>
+        </div>
       </div>
-      <div class="scale-item">
-        <div class="badge-g xs"><svg viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M 55.49 23.45 A 25.00 25.00 0 1 1 44.50 10.35" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
-          <path d="M 27.50 23.00 L 36.50 23.00 A 4.50 4.50 0 0 1 41.00 27.50 L 41.00 36.50 A 4.50 4.50 0 0 1 36.50 41.00 L 27.50 41.00 A 4.50 4.50 0 0 1 23.00 36.50 L 23.00 27.50 A 4.50 4.50 0 0 1 27.50 23.00 Z" fill="none" stroke="currentColor" stroke-width="5.5"/>
-          <path d="M 45.50 32.00 L 52.00 32.00 M 41.55 41.55 L 46.14 46.14 M 32.00 45.50 L 32.00 52.00 M 22.45 41.55 L 17.86 46.14 M 18.50 32.00 L 12.00 32.00 M 22.45 22.45 L 17.86 17.86 M 32.00 18.50 L 32.00 12.00 M 41.55 22.45 L 46.14 17.86" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/>
-        </svg></div>
-        <span>28px — tab favicon</span>
+      <div class="iter">
+        <div class="iter-head"><span class="iter-name">G5 — Favicon cut</span><span class="iter-note">Four rays and a heavier core — the version that survives 16px.</span></div>
+        <div class="iter-row">
+          <div class="iter-tile light"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.69 26.64 M 53.47 22.44 L 52.42 29.87" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 41.55 41.55 L 45.08 45.08 M 22.45 41.55 L 18.92 45.08 M 22.45 22.45 L 18.92 18.92 M 41.55 22.45 L 45.08 18.92" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile dark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.69 26.64 M 53.47 22.44 L 52.42 29.87" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M 41.55 41.55 L 45.08 45.08 M 22.45 41.55 L 18.92 45.08 M 22.45 22.45 L 18.92 18.92 M 41.55 22.45 L 45.08 18.92" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+          <div class="iter-tile light"><div class="iter-badge lg"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.69 26.64 M 53.47 22.44 L 52.42 29.87" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="currentColor" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><path d="M 41.55 41.55 L 45.08 45.08 M 22.45 41.55 L 18.92 45.08 M 22.45 22.45 L 18.92 18.92 M 41.55 22.45 L 45.08 18.92" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg></div></div>
+          <div class="iter-tile surface">
+            <div class="iter-size"><div class="iter-badge px28"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.69 26.64 M 53.47 22.44 L 52.42 29.87" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="currentColor" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M 41.55 41.55 L 45.08 45.08 M 22.45 41.55 L 18.92 45.08 M 22.45 22.45 L 18.92 18.92 M 41.55 22.45 L 45.08 18.92" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></div>28px</div>
+            <div class="iter-size"><div class="iter-badge px16"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.69 26.64 M 53.47 22.44 L 52.42 29.87" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M 27.50 23.50 L 36.50 23.50 A 4 4 0 0 1 40.50 27.50 L 40.50 36.50 A 4 4 0 0 1 36.50 40.50 L 27.50 40.50 A 4 4 0 0 1 23.50 36.50 L 23.50 27.50 A 4 4 0 0 1 27.50 23.50 Z" fill="currentColor" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M 41.55 41.55 L 45.08 45.08 M 22.45 41.55 L 18.92 45.08 M 22.45 22.45 L 18.92 18.92 M 41.55 22.45 L 45.08 18.92" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg></div>16px</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <div class="reco">
     <h2>A starting recommendation</h2>
-    <p><b>G for the icon, F for the wordmark.</b> Together they're the same idea told two ways: G compresses "every" (the repeat ring) and "day" (the sun) into one square glyph for favicon/home-screen use; F spells the same duality out as a wordmark, using the app's own ↑/↓ direction glyphs as the E and D's spines. Neither borrows an existing UI element wholesale — both are original marks built from the system's shapes, type, and color.</p>
+    <p><b>G1 for the icon, G5 as its small-size version, F for the wordmark.</b> G1 is your sketch, tightened up: a single arrow reads as "keep going," which suits a daily habit better than G3's two chasing arrows, even though G3 is the more literal "sync." The rounded-square core keeps it tied to the app's own shapes rather than reading like a weather icon. No eight-ray version survives 16px, so G5 strips it to four rays and a solid core for the browser tab, the standard way to handle the smallest favicon sizes. F carries the same "every day" idea as a wordmark.</p>
     <p>A, B, C, D, and E remain viable alternates — B or A for a plainer wordmark in dense placements, C if a letterform monogram is preferred over an illustrative icon, D or E if a more abstract/reused-glyph icon fits better than the sun motif.</p>
   </div>
 

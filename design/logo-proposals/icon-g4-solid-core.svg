@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M 40.80 10.21 A 23.50 23.50 0 1 0 53.47 22.44 M 53.47 22.44 L 59.27 26.36 M 53.47 22.44 L 52.49 29.37" fill="none" stroke="#e85a2c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 28.00 24.50 L 36.00 24.50 A 3.5 3.5 0 0 1 39.50 28.00 L 39.50 36.00 A 3.5 3.5 0 0 1 36.00 39.50 L 28.00 39.50 A 3.5 3.5 0 0 1 24.50 36.00 L 24.50 28.00 A 3.5 3.5 0 0 1 28.00 24.50 Z" fill="#e85a2c" stroke="#e85a2c" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M 43.50 32.00 L 50.50 32.00 M 32.00 43.50 L 32.00 50.50 M 20.50 32.00 L 13.50 32.00 M 32.00 20.50 L 32.00 13.50 M 40.13 40.13 L 42.96 42.96 M 23.87 40.13 L 21.04 42.96 M 23.87 23.87 L 21.04 21.04 M 40.13 23.87 L 42.96 21.04" fill="none" stroke="#e85a2c" stroke-width="3" stroke-linecap="round"/>
+</svg>

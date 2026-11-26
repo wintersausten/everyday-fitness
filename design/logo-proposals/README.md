@@ -43,21 +43,23 @@ mark. None of the proposals build on it.
   the rest). Both arrows share the same weight and color: up in "Every," down
   in "Day," neither singled out — the wordmark enacts §5/§6's no-judgment
   rule in its own structure, not just its copy.
-- **G — Sun-in-repeat icon.** A repeat/cycle ring (every) wrapped around a sun
-  (day) — the app's own name compressed into one square glyph. The sun's core
-  is a rounded square rather than a circle, tying it to `--r-lg` and the
-  Concept C badge language instead of reading as a generic weather icon.
-  Verified legible down to a 28px favicon.
+- **G — Sun in a sync arrow (5 iterations).** A sync arrow (every) circling a
+  sun (day): the app's own name as one square glyph. All five share a 64-unit
+  grid, stroke weight and arrowhead geometry:
+  - `icon-g1-as-sketched.svg`: one arrow, rounded-square core, eight rays.
+  - `icon-g2-round-sun.svg`: same, with a circular core.
+  - `icon-g3-two-arrow-sync.svg`: two chasing half-loops (the standard sync glyph).
+  - `icon-g4-solid-core.svg`: filled core, alternating ray lengths.
+  - `icon-g5-favicon-cut.svg`: four rays and a heavier core, for 16–32px.
 
 ## Starting recommendation
 
-**G for the icon, F for the wordmark.** Together they tell the same idea two
-ways: G compresses "every" (the repeat ring) and "day" (the sun) into one
-square glyph for favicon/home-screen use; F spells the same duality out as a
-wordmark, using the app's own ↑/↓ direction glyphs as the E and D's spines.
-Neither borrows an existing UI element wholesale — both are original marks
-built from the system's shapes, type, and color. A, B, C, D, and E remain
-viable alternates.
+**G1 for the icon, G5 as its small-size version, F for the wordmark.** A
+single arrow reads as "keep going," which fits a daily habit better than G3's
+two arrows, even though G3 is the more literal "sync." The rounded-square core
+keeps it tied to `--r-lg` rather than reading like a weather icon. None of the
+eight-ray versions stay legible at 16px, so G5 is the browser-tab version. F
+carries the same "every day" idea as a wordmark. A–E remain viable alternates.
 
 Nothing here has been wired into the app — this is proposals only. Adopting a
 direction means replacing `public/favicon.svg` and regenerating
