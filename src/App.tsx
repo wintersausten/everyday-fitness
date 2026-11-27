@@ -14,7 +14,7 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LogScreen />} />
+        <Route path="/" element={<LogScreen autoFocus={!showWelcome} />} />
         <Route path="/dashboard" element={<DashboardScreen />} />
         <Route path="/history" element={<HistoryScreen />} />
         <Route path="/settings" element={<SettingsScreen />} />
