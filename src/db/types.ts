@@ -35,9 +35,13 @@ export interface Initiative {
 
 export type SmoothingMode = 'ma7' | 'ema' | 'off'
 
+/** How the Log screen takes a weight: keyboard, or the camera scale scanner. */
+export type EntryMode = 'type' | 'scan'
+
 export interface Settings {
   id: 'app' // singleton row
   displayUnit: Unit // default 'lb'
   smoothing: SmoothingMode // default 'ma7'
+  entryMode: EntryMode // default 'type'; absent on rows written before it existed
   updatedAt: number
 }

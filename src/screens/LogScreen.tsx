@@ -1,11 +1,12 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useLiveQuery } from 'dexie-react-hooks'
 import DayPicker from '../components/DayPicker.tsx'
+import ScaleScanner from '../components/ScaleScanner.tsx'
 import WeightInput from '../components/WeightInput.tsx'
-import { getEntry, upsertEntry } from '../db/entries.ts'
+import { getEntry, latestEntryOnOrBefore, upsertEntry } from '../db/entries.ts'
 import { getSettings, updateSettings } from '../db/settings.ts'
 import type { DayString, Unit } from '../db/types.ts'
-import { todayLocal } from '../lib/dates.ts'
+import { formatDayLong, todayLocal } from '../lib/dates.ts'
 import { displayWeight, parseWeightInput } from '../lib/units.ts'
 
 export default function LogScreen() {
@@ -15,10 +16,26 @@ export default function LogScreen() {
   const [touched, setTouched] = useState(false)
   const [error, setError] = useState<string>()
   const [saved, setSaved] = useState(false)
+  const [scanning, setScanning] = useState(false)
 
   const settings = useLiveQuery(getSettings, [])
   const unit: Unit = settings?.displayUnit ?? 'lb'
-  const entry = useLiveQuery(() => getEntry(selectedDay), [selectedDay])
+  // null = loaded and absent; undefined = still loading (the auto-open below
+  // must not mistake one for the other).
+  const entry = useLiveQuery(async () => (await getEntry(selectedDay)) ?? null, [selectedDay])
+  const latest = useLiveQuery(() => latestEntryOnOrBefore(selectedDay), [selectedDay])
+  const expected = latest ? displayWeight(latest, unit) : undefined
+
+  // Scan mode: open the camera on arrival when today isn't logged yet. Once
+  // per visit to this screen — closing the scanner sticks.
+  const autoOpened = useRef(false)
+  useEffect(() => {
+    if (autoOpened.current || settings === undefined || entry === undefined) return
+    autoOpened.current = true
+    if (settings.entryMode === 'scan' && entry === null && selectedDay === todayLocal()) {
+      setScanning(true)
+    }
+  }, [settings, entry, selectedDay])
 
   useEffect(() => {
     if (touched) return
@@ -39,9 +56,8 @@ export default function LogScreen() {
     void updateSettings({ displayUnit: next })
   }
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    const parsed = parseWeightInput(draft, unit)
+  const save = (raw: string) => {
+    const parsed = parseWeightInput(raw, unit)
     if (!parsed.ok) {
       setError(parsed.error)
       return
@@ -55,6 +71,19 @@ export default function LogScreen() {
       setTouched(false)
       setSaved(true)
     })
+  }
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    save(draft)
+  }
+
+  const fillFromScan = (value: number) => {
+    setDraft(String(value))
+    setTouched(true)
+    setError(undefined)
+    setSaved(false)
+    setScanning(false)
   }
 
   return (
@@ -73,6 +102,18 @@ export default function LogScreen() {
           }}
           onToggleUnit={toggleUnit}
         />
+        <button type="button" className="scan-button" onClick={() => setScanning(true)}>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path
+              d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M8 12h8"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+          Scan scale
+        </button>
         <button type="submit" className={saved ? 'save-button celebrate' : 'save-button'}>
           Save
         </button>
@@ -92,6 +133,19 @@ export default function LogScreen() {
           Saved
         </p>
       </form>
+      {scanning && (
+        <ScaleScanner
+          unit={unit}
+          expected={expected}
+          dayLabel={formatDayLong(selectedDay)}
+          onSave={(value) => {
+            fillFromScan(value)
+            save(String(value))
+          }}
+          onEdit={fillFromScan}
+          onClose={() => setScanning(false)}
+        />
+      )}
     </main>
   )
 }

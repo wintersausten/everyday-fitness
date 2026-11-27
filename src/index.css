@@ -940,3 +940,252 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+.unit-radios + .settings-hint {
+  margin-top: 8px;
+}
+
+/* Log → "Scan scale": quiet secondary action under the hero number. */
+.scan-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 8px 18px;
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+}
+
+/* Scale scanner (beta). Camera UI stays dark in both themes, like a native
+   camera, so the display being framed is what's brightest on screen. */
+.scanner {
+  --scan-fg: #f4f2ef;
+  --scan-muted: #a2a5af;
+
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  color: var(--scan-fg);
+  background: #000;
+  animation: overlay-in var(--dur-trans) var(--ease-out);
+}
+
+.scanner-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: calc(8px + env(safe-area-inset-top)) 8px 8px;
+}
+
+.scanner-close,
+.scanner-details-toggle {
+  min-width: 44px;
+  min-height: 44px;
+  font: 600 15px/1 var(--font-body);
+  color: var(--scan-fg);
+  background: rgb(255 255 255 / 12%);
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 0 14px;
+}
+
+.scanner-details-toggle[aria-pressed='true'] {
+  background: var(--accent);
+}
+
+.scanner-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.scanner-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Guide box; the giant spread shadow dims everything outside it. */
+.scanner-guide {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(80%, 360px);
+  aspect-ratio: 2.6;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--scan-fg);
+  border-radius: var(--r-sm);
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 50%);
+}
+
+.scanner-seeing {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  font: 600 20px/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--scan-fg);
+  background: rgb(0 0 0 / 55%);
+  border-radius: var(--r-pill);
+  padding: 4px 12px;
+}
+
+.scanner-status {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: calc(42% + min(40vw, 180px) / 2.6 + 16px);
+  margin: 0;
+  text-align: center;
+  font-size: 15px;
+  color: var(--scan-fg);
+  text-shadow: 0 1px 4px rgb(0 0 0 / 70%);
+}
+
+.scanner-votes {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.vote {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 30%);
+}
+
+.vote.hit {
+  background: var(--accent);
+}
+
+.scanner-details {
+  max-height: 40vh;
+  overflow: auto;
+  padding: 12px 16px;
+  font-size: 13px;
+  background: #15171c;
+}
+
+.scanner-details.hidden {
+  display: none;
+}
+
+.scanner-ocr-canvas {
+  display: block;
+  max-width: 100%;
+  height: 64px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  image-rendering: pixelated;
+  background: #fff;
+}
+
+.scanner-details dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 12px;
+  margin: 0 0 4px;
+}
+
+.scanner-details dt {
+  color: var(--scan-muted);
+}
+
+.scanner-details dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.scanner-actions {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+}
+
+.scanner-secondary {
+  flex: 1;
+  min-height: 48px;
+  font: 600 15px/1 var(--font-body);
+  color: var(--scan-fg);
+  background: rgb(255 255 255 / 12%);
+  border: none;
+  border-radius: var(--r-md);
+}
+
+.scanner-secondary:disabled {
+  opacity: 0.4;
+}
+
+/* Locked reading: a bottom sheet in the app's own theme. */
+.scanner-result {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px calc(24px + env(safe-area-inset-bottom));
+  color: var(--text);
+  background: var(--bg);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  animation: sheet-in var(--dur-trans) var(--ease-out);
+}
+
+.scanner-result .overline {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.scanner-value {
+  margin: 0;
+  font: 600 64px/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-h);
+}
+
+.scanner-unit {
+  margin-left: 6px;
+  font-size: 24px;
+  color: var(--text-muted);
+}
+
+.scanner-warning {
+  margin: 0;
+  max-width: 320px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--danger);
+}
+
+.scanner-result-secondary {
+  display: flex;
+  gap: 24px;
+}
+
+.scanner-link {
+  min-height: 44px;
+  padding: 0 8px;
+  font: 600 15px/1 var(--font-body);
+  color: var(--accent);
+  background: none;
+  border: none;
+}

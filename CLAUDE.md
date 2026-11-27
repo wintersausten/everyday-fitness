@@ -50,6 +50,15 @@ Dexie). The user owns their data and can export it.
   emptyInitiative, …) exist to stress smoothing, stats, ranges, and
   initiative/goal rendering.
 
+## Scale scanner (camera OCR, beta)
+- src/components/ScaleScanner.tsx + src/lib/scan/ (pure preprocess/parse/vote
+  logic, unit-tested; ocr.ts is the browser-only Tesseract wrapper).
+- Tesseract worker/core/model are self-hosted under /ocr/<tesseract version>/
+  by the `ocr-assets` plugin in vite.config.ts (model lives in ocr-models/).
+  Never point tesseract.js at its CDN defaults. These assets are excluded from
+  precache and runtime-cached (CacheFirst) on first scanner use.
+- Frames stay in memory only: never store or send camera images.
+
 ## Workflow
 - Verify every change: typecheck + lint + tests. Verify PWA/offline behavior
   against a production build (build && preview), never dev.

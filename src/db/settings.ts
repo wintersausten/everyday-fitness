@@ -5,6 +5,7 @@ export const DEFAULT_SETTINGS: Settings = {
   id: 'app',
   displayUnit: 'lb',
   smoothing: 'ma7',
+  entryMode: 'type',
   updatedAt: 0,
 }
 
