@@ -35,6 +35,11 @@ export function listEntriesDesc(): Promise<Entry[]> {
   return db.entries.orderBy('date').reverse().toArray()
 }
 
+/** The latest entry on or before `date` — the scanner's "expected" weight. */
+export function latestEntryOnOrBefore(date: DayString): Promise<Entry | undefined> {
+  return db.entries.where('date').belowOrEqual(date).last()
+}
+
 /** All entries, oldest day first — the chart/stats scope order. */
 export function listEntriesAsc(): Promise<Entry[]> {
   return db.entries.orderBy('date').toArray()

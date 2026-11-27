@@ -15,13 +15,18 @@ import {
   type InitiativeInput,
 } from '../db/initiatives.ts'
 import { getSettings, updateSettings } from '../db/settings.ts'
-import type { DayString, Initiative, Unit } from '../db/types.ts'
+import type { DayString, EntryMode, Initiative, Unit } from '../db/types.ts'
 import { formatDayLong } from '../lib/dates.ts'
 import { displayWeight } from '../lib/units.ts'
 
 const UNITS: { key: Unit; label: string }[] = [
   { key: 'lb', label: 'Pounds (lb)' },
   { key: 'kg', label: 'Kilograms (kg)' },
+]
+
+const ENTRY_MODES: { key: EntryMode; label: string }[] = [
+  { key: 'type', label: 'Type it in' },
+  { key: 'scan', label: 'Scan the scale with the camera (beta)' },
 ]
 
 /** The end-current prompt, pending the user's confirmation. */
@@ -66,6 +71,27 @@ export default function SettingsScreen() {
             </label>
           ))}
         </div>
+      </section>
+
+      <section className="settings-section">
+        <h2 className="settings-heading">Logging</h2>
+        <div className="unit-radios" role="radiogroup" aria-label="Logging method">
+          {ENTRY_MODES.map(({ key, label }) => (
+            <label key={key} className="form-check">
+              <input
+                type="radio"
+                name="entryMode"
+                checked={(settings?.entryMode ?? 'type') === key}
+                onChange={() => void updateSettings({ entryMode: key })}
+              />
+              <span>{label}</span>
+            </label>
+          ))}
+        </div>
+        <p className="settings-hint">
+          Scan opens the camera when you haven’t logged today. Reading happens on your phone;
+          images are never saved or sent anywhere.
+        </p>
       </section>
 
       <section className="settings-section">

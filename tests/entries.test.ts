@@ -4,6 +4,7 @@ import {
   deleteEntry,
   entriesInRange,
   getEntry,
+  latestEntryOnOrBefore,
   listEntriesDesc,
   upsertEntry,
 } from '../src/db/entries.ts'
@@ -56,6 +57,17 @@ describe('listEntriesDesc', () => {
       '2026-07-10',
       '2026-07-09',
     ])
+  })
+})
+
+describe('latestEntryOnOrBefore', () => {
+  it('returns the newest entry not after the given day', async () => {
+    for (const day of ['2026-07-09', '2026-07-12', '2026-07-10']) {
+      await upsertEntry(day, { value: 175, unit: 'lb' })
+    }
+    expect((await latestEntryOnOrBefore('2026-07-11'))?.date).toBe('2026-07-10')
+    expect((await latestEntryOnOrBefore('2026-07-12'))?.date).toBe('2026-07-12')
+    expect(await latestEntryOnOrBefore('2026-07-08')).toBeUndefined()
   })
 })
 
