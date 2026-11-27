@@ -9,6 +9,9 @@ Served by the `ocr-assets` Vite plugin (vite.config.ts) at
 `/ocr/<tesseract.js version>/lang/`. It is not precached by the service worker;
 it's runtime-cached the first time the scale scanner opens.
 
-The repo also has a larger float model (`7seg.traineddata`, ~11 MB) that its
-author reports does better on some real photos. To try it, drop it in this
-directory and add it to `OCR_MODELS` in src/lib/scan/ocr.ts.
+Only integer ("fast") models work here. The repo's float models
+(`ssd.traineddata`, `7seg.traineddata`, ~11 MB) abort in tesseract.js 7's
+LSTM-only wasm core (`missing function: DotProductSSE`). Its author reports
+that `7seg` does better on some real photos, so using it would mean converting
+it to integer with `combine_tessdata -c`, or switching to the full
+(non-LSTM-only) core.
